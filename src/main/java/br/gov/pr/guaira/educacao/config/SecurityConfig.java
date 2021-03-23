@@ -16,7 +16,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
 	@Autowired
 	private UserDetailsService userDetails;
 	
@@ -40,14 +39,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/","/educacaoInfantil","/saudeEscola", "/encerramento-ano-letivo", "/atividadesBncc", "/videos", "/inclusao", "/brincadeiras", "/rotinas", 
+				.antMatchers("/","/educacaoInfantil","/educacaoespecial","/kitAlimentacao/cadastro","/kitAlimentacao/nova","/saudeEscola", "/encerramento-ano-letivo", "/atividadesBncc", "/videos", "/inclusao", "/brincadeiras", "/rotinas", 
 						"/segunda", "/terca", "/quarta", "/quinta", "/sexta", "/sabado", "/domingo","/musicalizacao","/semanasLiberadas/*", 
 						"/aulasOnline/*/*", "/aula/*/*/*").permitAll()
 				.antMatchers("/materias/*").hasRole("CADASTRAR_MATERIA")
-				.antMatchers("/series/*").hasRole("CADASTRAR_SERIE")
+				.antMatchers("/principal").hasRole("PRINCIPAL")
+				.antMatchers("/series/*").hasRole("CADASTRAR_SERIE")				
+				.antMatchers("/serieColegio/*").hasRole("COLEGIO")
+				.antMatchers("/serieColegio").hasRole("COLEGIO")
+				.antMatchers("/colegios/*").hasRole("COLEGIO")
+				.antMatchers("/colegios").hasRole("COLEGIO")
 				.antMatchers("/semanas/*").hasRole("CADASTRAR_SEMANA")
 				.antMatchers("/aulas/*").hasRole("CADASTRAR_AULA")
-				.antMatchers("/usuarios/*").hasRole("CADASTRAR_USUARIO")
+				.antMatchers("/usuarios/*").hasRole("ADMIN")
 				.antMatchers("/materias").hasRole("PESQUISAR_MATERIA")
 				.antMatchers("/series").hasRole("PESQUISAR_SERIE")
 				.antMatchers("/semanas").hasRole("PESQUISAR_SEMANA")
@@ -57,8 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				//anyRequest().denyAll()
 				.and()
 				
-			.formLogin()
-				.loginPage("/login").defaultSuccessUrl("/aulas/nova", true)
+			.formLogin()		
+				.loginPage("/login").defaultSuccessUrl("/principal", true)
 				.permitAll()
 				.and()
 			.logout()

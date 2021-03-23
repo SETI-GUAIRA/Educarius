@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+
 @Entity
 @Table(name = "serie")
 @DynamicUpdate

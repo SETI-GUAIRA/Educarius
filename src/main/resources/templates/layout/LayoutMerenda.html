@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Plano Estratégico Pedagógico">
+<meta name="author" content="Benjamin Fernandes">
+
+<title>Município de Guaíra</title>
+<link rel="shortcut icon" th:href="@{/img/favicon.ico}" />
+<!-- Custom fonts for this theme -->
+<link th:href="@{/stylesheets/vendors/fontawesome-free/css/all.min.css}"
+	type="text/css" rel="stylesheet">
+<link
+	th:href="@{https://fonts.googleapis.com/css?family=Montserrat:400,700}"
+	rel="stylesheet" type="text/css">
+<link
+	th:href="@{https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic}"
+	rel="stylesheet" type="text/css">
+
+<!-- Theme CSS -->
+
+<link th:href="@{/layout/stylesheets/algaworks.css}" type="text/css"rel="stylesheet">
+<link th:href="@{/stylesheets/freelancer.min.css}" type="text/css"
+	rel="stylesheet">
+<link th:href="@{/stylesheets/freelancer.css}" type="text/css"rel="stylesheet">
+
+
+<link th:href="@{/stylesheets/merenda.css}" type="text/css"rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+	<!-- <div th:replace="layout/fragments-Edu_especial/Header :: layout-header"></div>-->
+	<div th:replace="layout/fragments-site/Navbar :: layout-navbar"></div>
+	<section layout:fragment="conteudo"></section>
+	<div th:replace="layout/fragments-site/Footer :: layout-footer"></div>
+	<div th:replace="layout/fragments-site/Copyright :: layout-copyright"></div>
+
+	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+	<div class="scroll-to-top d-lg-none position-fixed ">
+		<a class="js-scroll-trigger d-block text-center text-white rounded"
+			href="#page-top"> <i class="fa fa-chevron-up"></i>
+		</a>
+	</div>
+
+
+    <script th:src="@{/layout/javascripts/algaworks.js}"></script>
+	<!-- Bootstrap core JavaScript -->
+	
+	<script th:src="@{/javascripts/vendors/jquery.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/bootstrap.bundle.min.js}"></script>
+	<!-- Plugin JavaScript -->
+	<script th:src="@{/javascripts/vendors/jquery.easing.min.js}"></script>
+	<!-- Custom scripts for this template -->
+	<script th:src="@{/javascripts/freelancer.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
+	<script th:src="@{/javascripts/lambariuspro.js}"></script>
+	
+
+	<div vw class="enabled">
+		<div vw-access-button class="active"></div>
+		<div vw-plugin-wrapper>
+			<div class="vw-plugin-top-wrapper"></div>
+		</div>
+	</div>
+	<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+	<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+</body>
+</html>

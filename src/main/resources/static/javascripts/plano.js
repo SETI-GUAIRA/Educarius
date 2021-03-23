@@ -1,5 +1,25 @@
 var Plano = Plano || {};
 
+Plano.MaskCpf = (function () {
+	  class MaskCpf {
+	    constructor() {
+	    }
+	    enable() {
+	      var options = {
+	        onKeyPress: function (cpfcnpj, e, field, options) {
+	          var mask = '000.000.000-09'
+	          $('.js-documento-cpf').mask(mask, options)
+	        }
+	      }
+
+	      $('.js-documento-cpf').mask('000.000.000-09', options)
+
+	    }
+	  }
+
+	  return MaskCpf
+	}())
+
 Plano.MaskCep = (function() {
 	
 	function MaskCep() {
@@ -67,6 +87,9 @@ Plano.Security = (function() {
 }());
 
 $(function(){
+	var MaskCpf = new Plano.MaskCpf();
+	MaskCpf.enable();
+	
 	var maskCep = new Plano.MaskCep();
 	maskCep.enable();
 	

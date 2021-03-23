@@ -20,7 +20,8 @@
 			<div class="divider-custom-line"></div>
 		</div>
 		<div class="container">
-			<div class="row">
+		
+		<!--  <div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<div class="portfolio-item mx-auto">
 						<a th:href="|@{/encerramento-ano-letivo}#videos|">
@@ -33,9 +34,9 @@
 						</a> <img class="img-fluid" src="img/encerramento_ano.jpg" alt="">
 					</div>
 				</div>
-			</div>
+			</div>-->				
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3"
+			 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3"
 					th:each="serie : ${series}">
 					<div class="portfolio-item mx-auto">
 						<a
@@ -50,12 +51,10 @@
 						</a> <img class="img-fluid"
 							th:src="@{/img/{image}(image=${serie.nomeFoto})}" alt="">
 					</div>
-				</div>
+				</div>	
 			</div>
 		</div>
-
 	</section>
-
 	<section class="copyright py-4 text-center text-white">
 		<div class="container">
 			<h1 class="text-center text-white">Outras Atividades</h1>
@@ -84,9 +83,9 @@
 				</div>
 
 				<div class="col-md-6 col-lg-6">
-					<h4 class="text-center">Educação Infantil</h4>
+					<h4 class="text-center">Kit Alimentação Escolar</h4>
 					<div class="portfolio-item mx-auto">
-						<a th:href="@{/educacaoInfantil}">
+						<a th:href="@{/kitAlimentacao/nova}">
 							<div
 								class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
 								<div
@@ -94,7 +93,7 @@
 									<i class="fas fa-plus fa-3x"></i>
 								</div>
 							</div>
-						</a> <img class="img-fluid" src="img/educacao_infantil2.jpg" alt="">
+						</a> <img class="img-fluid" src="img/merenda.jpg" alt="">
 					</div>
 				</div>
 
@@ -146,8 +145,21 @@
 						</a> <img class="img-fluid" src="img/atividades_videos.jpg" alt="">
 					</div>
 				</div>
-
-				<div class="col-md-6 col-lg-6">
+                 <div class="col-md-6 col-lg-6">
+					<h4 class="text-center">Educação Infantil</h4>
+					<div class="portfolio-item mx-auto">
+						<a th:href="@{/educacaoInfantil}">
+							<div
+								class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+								<div
+									class="portfolio-item-caption-content text-center text-white">
+									<i class="fas fa-plus fa-3x"></i>
+								</div>
+							</div>
+						</a> <img class="img-fluid" src="img/educacao_infantil2.jpg" alt="">
+					</div>
+				</div>
+				<!-- <div class="col-md-6 col-lg-6">
 					<h4 class="text-center">Educação Especial Inclusiva</h4>
 					<br/>
 					<div class="portfolio-item mx-auto">
@@ -161,7 +173,7 @@
 							</div>
 						</a> <img class="img-fluid" src="img/educacao_especial.jpg" alt="">
 					</div>
-				</div>
+				</div>-->
 
 				<!-- Portfolio Item 3 -->
 				<div class="col-md-6 col-lg-6">
@@ -225,13 +237,13 @@
 							</div>
 						</a> <img class="img-fluid" src="img/rotinas.jpg" alt="">
 					</div>
-				</div>
-
+				</div>	
+				
 			</div>
 
 		</div>
 	</section>
-
+   
 	<!-- Portfolio Modal 1 -->
 	<div class="portfolio-modal modal fade" id="portfolioModal1"
 		tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label"

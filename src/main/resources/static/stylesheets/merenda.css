@@ -1,0 +1,44 @@
+
+.fundoForm{
+	background-color:#f0f3f7;	
+	padding-top: 10px;
+	padding-bottom: 1px;
+	margin-bottom: 40px;
+	border-radius: 10px;	
+}
+.nomeForm{	
+	color:#ffffff;
+	font-weight:bold;
+	font-size: 14px;
+	border-radius: 8px 8px 0px 0px;	
+	background-color: #2C3E50;
+	padding: 10px;
+	
+}
+.separador{	
+	height:1px;
+	margin-bottom: 20px;
+	background-color:#2C3E50;
+}
+.aw-form-control-inline-sm {
+  display: inline-block !important;
+  width: 33% !important;
+}
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+  color: #a94442;
+}
+.has-error .form-control {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
