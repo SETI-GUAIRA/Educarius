@@ -6,12 +6,11 @@
 <body>
 <aside class="aw-layout-sidebar  js-sidebar" th:fragment="layout-sidebar">
 	<div class="aw-layout-sidebar__content">
-
     	<nav class="aw-menu  js-menu">
       		<ul class="aw-menu__list">
 
         		<li class="aw-menu__item" portal:menu="@{/}">
-          			<a th:href="@{/}"><i class="fa  fa-fw  fa-home"></i><span>Dashboard</span></a>
+          			<a th:href="@{/principal}"><i class="fa  fa-fw  fa-home"></i><span>Home</span></a>
         		</li>
         		
         		<li class="aw-menu__item">
@@ -22,19 +21,25 @@
 
           			<ul class="aw-menu__list  aw-menu__list--sublist">
 			            <li class="aw-menu__item  aw-menu__item--link" portal:menu="@{/materias.*}">
-			            	<a th:href="@{/materias}">Matérias</a>
+			            	<a sec:authorize ="hasRole('CADASTRAR_MATERIA')" th:href="@{/materias}">Matérias</a>
 			            </li>
 			            <li class="aw-menu__item  aw-menu__item--link" portal:menu="@{/series.*}">
-			            	<a th:href="@{/series}">Séries</a>
+			            	<a sec:authorize ="hasRole('CADASTRAR_MATERIA')" th:href="@{/series}">Séries</a>
 			            </li>
 			            <li class="aw-menu__item  aw-menu__item--link" portal:menu="@{/semanas.*}">
-			            	<a th:href="@{/semanas}">Semanas</a>
+			            	<a sec:authorize ="hasRole('CADASTRAR_MATERIA')" th:href="@{/semanas}">Semanas</a>
+			            </li>
+			            <li class="aw-menu__item  aw-menu__item--link" portal:menu="@{/colegios.*}">
+			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/colegios}">Colégios</a>
+			            </li>
+			            <li class="aw-menu__item  aw-menu__item--link" portal:menu="@{/serieColegio.*}">
+			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/serieColegio}">Series</a>
 			            </li>
           			</ul>
         		</li>
         		
         		<li class="aw-menu__item">
-          			<a href="#">
+          			<a sec:authorize ="hasRole('CADASTRAR_MATERIA')" href="#">
             			<i class="fa  fa-fw  fa-book"></i><span>Aulas</span>
             			<i class="aw-menu__navigation-icon  fa"></i>
           			</a>
@@ -50,7 +55,7 @@
         		</li>
 
         		<li class="aw-menu__item">
-          			<a href="#">
+          			<a sec:authorize ="hasRole('CADASTRAR_MATERIA')" href="#">
             			<i class="fa  fa-fw  fa-user"></i><span>Usuário</span>
             			<i class="aw-menu__navigation-icon  fa"></i>
           			</a>

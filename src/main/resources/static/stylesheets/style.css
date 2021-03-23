@@ -1027,8 +1027,7 @@ a:focus {
 
 /* 07 - Page Title & Breadcrumps
 -------------------------------------------------- */
-
-. .form-inline {
+ .form-inline {
     display: inline;
 }
 
@@ -2485,7 +2484,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
     outline: none;
 }
 
-/* AJUSTES BOTÕES */
+/* AJUSTES BOTï¿½ES */
 .btn-pesquisa {
 	margin-top: 28px;
 }

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutMerenda.html}">
+
+<section layout:fragment="conteudo">
+
+ 
+  <br> <br> <br> <br><br><br>
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Cadastro Kit Alimentacao</h2>
+
+      <!-- Icon Divider -->
+      <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="divider-custom-line"></div>
+      </div>     
+     
+    <div class="container fundoForm">
+         
+    	<form method="POST" th:object="${kitAlimentacao}"
+			class="form-vertical  js-form-loading"
+			th:action="@{/kitAlimentacao/nova}">
+			<input type="hidden" th:field="*{codigo}" />
+			<div layout:insert="fragments/Mensagem"></div>
+	        <div layout:insert="fragments/MensagemErro"></div> 
+			<div class="nomeForm">DADOS ALUNO</div>		
+			<div class="row  bw-required">
+				<div class="col-sm-12  form-group"plano:classforerror="nome_aluno">
+						<label for="nome_aluno" class="control-label">Nome
+							</label> <input id="nome_aluno" type="text" class="form-control"
+							th:field="*{nome_aluno}" />
+				</div>
+				<div class="col-sm-6 form-group" plano:classforerror="colegio">
+					<label for="colegio" class="control-label">Colégio</label> 
+					<div class="bw-field-action">
+						<select id="colegio" class="form-control" th:field="*{colegio}">
+							<option value="">Selecione um colégio</option>
+							<option th:each="colegio : ${colegios}"
+								th:value="${colegio.codigo}" th:text="${colegio.nome}"></option>
+						</select>
+					</div>
+				</div>			
+				<div class="col-sm-2  form-group" plano:classforerror="serie">
+					<label for="serie" class="control-label">Série</label>
+					<div class="bw-field-action">
+						<select id="serie" class="form-control" th:field="*{serie}">
+							<option value="">Selecione</option>
+							<option th:each="serie : ${seriesColegios}" th:value="${serie.codigo}"
+								th:text="${serie.nome}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-2">
+						<div class="form-group" plano:classforerror="turno">
+						<label for="turno" class="control-label">Turno</label>
+							<select class="form-control" th:field="*{turno}">
+								<option value="" readonly>Selecione</option>
+								<option th:each="turnos : ${turno}" th:value="${turnos}"
+									th:text="${turnos.descricao}">Turno</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group" plano:classforerror="turma">
+						<label for="turma" class="control-label">Turma</label>
+							<select class="form-control" th:field="*{turma}">
+								<option value="" readonly>Selecione</option>
+								<option th:each="turmas : ${turma}" th:value="${turmas}"
+									th:text="${turmas.descricao}">Turma</option>
+							</select>
+						</div>
+					</div>				
+			</div>
+			<div class="nomeForm">DADOS RESPONSAVEL</div>			
+			<div class="row  bw-required">				
+				<div class="col-sm-12  form-group" plano:classforerror="nome_responsavel">
+					<label for="nome_responsavel" class="control-label">Nome</label> 
+					<input id="nome_responsavel" type="text" class="form-control" th:field="*{nome_responsavel}" />
+				</div>
+			</div>	
+			<div class="row  bw-required">				
+				<div class="col-sm-4  form-group" plano:classforerror="cpf">
+					<label for="cpf" class="control-label">CPF</label> 
+					<input id="cpf" type="text" class="form-control js-documento-cpf" th:field="*{cpf}" />
+				</div>
+				
+				<div class="col-sm-4  form-group"
+					plano:classforerror="rg">
+					<label for="rg" class="control-label">RG</label> 
+					<input id="rg" type="text" class="form-control" th:field="*{rg}" />
+				</div>
+				<div class="col-sm-4  form-group"
+					plano:classforerror="telefone_contato">
+					<label for="telefone_contato" class="control-label">Telefone</label> 
+					<input id="telefone_contato" type="text" class="form-control js-cell-phone" th:field="*{telefone_contato}" />
+				</div>			
+			</div>	
+            <div class="separador"></div>
+			<div class="form-group text-right">
+				<button class="btn  btn-primary  js-btn-submit" type="submit">Salvar</button>
+			</div>
+		</form>
+    
+    </div>
+  </section>
+
+
+</html>

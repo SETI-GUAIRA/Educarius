@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br">
+
+<head>
+<title>Cadastro de séries Colégios</title>
+</head>
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1 th:if="${serieColegio.nova}">Cadastro séries</h1>
+					<h1 th:unless="${serieColegio.nova}" th:text="|Edição - ${serieColegio.nome}|"></h1>
+				</div>
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn btn-default" th:href="@{/serieColegio}"> <i
+							class="glyphicon glyphicon-search"></i> <span
+							class="hidden-xs  hidden-sm">Pesquisa</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+
+		<form method="POST" th:object="${serieColegio}" class="form-vertical  js-form-loading"
+			th:action="${serieColegio.nova} ? @{/serieColegio/nova} : @{/serieColegio/{codigo}(codigo=${serieColegio.codigo})}">
+
+			<input type="hidden" th:field="*{codigo}" />
+			<div layout:insert="fragments/Mensagem"></div>
+			<div layout:insert="fragments/MensagemErro"></div>
+
+			<div class="row  bw-required">
+				<div class="col-sm-12  form-group" plano:classforerror="nome">
+					<label for="nome" class="control-label">Nome</label> <input
+						id="nome" type="text" class="form-control" th:field="*{nome}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn  btn-primary  js-btn-submit" type="submit">Salvar</button>
+			</div>
+		</form>
+	</div>
+
+</section>
+
+</html>

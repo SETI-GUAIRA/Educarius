@@ -10,6 +10,25 @@ body .feature-box-icon{
 .fa{
 	font-size: 25px;
 }
+.logofundo{
+	background-image: url("/images/logo_municipio_preto.png");
+	background-size: 100%;   
+    background-repeat:no-repeat;    
+    width:300px;
+    height:300px;    
+    
+}
+.alturaFundo{
+	 padding-top: 10%;
+	 display: flex;
+	
+	justify-content: center;
+	align-items: center
+}
+.altura {    
+  margin-top: 30px; 
+  padding-top: 8px;
+}
 
 
 .logo-principal > a > img{

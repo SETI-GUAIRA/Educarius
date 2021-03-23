@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+	
+	
+<head>
+<title>Pesquisa de séries</title>
+</head>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1>Pesquisa de séries</h1>
+				</div>
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn btn-default" th:href="@{/serieColegio/nova}"> <i
+							class="glyphicon  glyphicon-plus-sign"></i> <span
+							class="hidden-xs  hidden-sm">Nova</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${serieColegioFilter}">
+			<div class="row">
+				<div class="form-group  col-sm-12">
+					<label class="control-label" for="nome">Nome</label> <input
+						type="text" class="form-control" id="nome" th:field="*{nome}" />
+				</div>
+			</div>
+			
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+		</form>
+		<div class="table-responsive  py-tabela-simples">
+			<table class="table  table-hover">
+				<thead>
+					<tr>
+						<th>
+							<plano:order page="${pagina}" field="nome" text="Nome"/>
+						</th>
+						<th class="table-hospedagem-col-acoes  text-center">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="serieColegio : ${pagina.conteudo}">
+					
+						<td th:text="${serieColegio.nome}"></td>
+						<td class="text-center">
+							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" 
+							 th:href="@{/serieColegio/{codigo}(codigo=${serieColegio.codigo})}"> 
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="#"
+							th:attr="data-codigo=${serieColegio.codigo}, data-url=@{/serieColegio/{codigo}(codigo=${serieColegio.codigo})}, 
+							data-objeto=${serieColegio.nome}">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</td>
+					</tr>
+
+				<tr th:if="${pagina.vazia}">
+						<td colspan="4">Nenhuma série encontrada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+			<plano:pagination page="${pagina}"/>
+	</div>
+</section>
+</html>

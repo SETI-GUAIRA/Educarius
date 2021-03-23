@@ -20,7 +20,9 @@ import br.gov.pr.guaira.educacao.controller.page.PageWrapper;
 import br.gov.pr.guaira.educacao.filter.AulaFilter;
 import br.gov.pr.guaira.educacao.filter.SemanaFilter;
 import br.gov.pr.guaira.educacao.model.Aula;
+import br.gov.pr.guaira.educacao.model.KitAlimentacao;
 import br.gov.pr.guaira.educacao.repository.Aulas;
+import br.gov.pr.guaira.educacao.repository.Materias;
 import br.gov.pr.guaira.educacao.repository.Semanas;
 import br.gov.pr.guaira.educacao.repository.Series;
 
@@ -34,6 +36,8 @@ public class InicioController {
 	private Aulas aulas;
 	@Autowired
 	private Series series;
+	@Autowired
+	private Materias materias;
 	
 	@GetMapping
 	public ModelAndView inicio() {
@@ -95,10 +99,24 @@ public class InicioController {
 		
 		return mv;
 	}
+//	@GetMapping("/merenda")
+//	public ModelAndView nova(Aula aula) {
+//		ModelAndView mv = new ModelAndView("merenda/cadastroMerenda");
+//		mv.addObject("series", this.series.findByOrderByNomeAsc());
+//		mv.addObject("materias", this.materias.findByOrderByNomeAsc());
+//		mv.addObject("semanas", this.semanas.findByOrderByDataFinalDesc());
+//		return mv;
+//	}	
 	
 	@GetMapping("/educacaoInfantil")
 	public ModelAndView educacaoInfantil() {
 		ModelAndView mv = new ModelAndView("atividades/educacao_infantil");
+		
+		return mv;
+	}
+	@GetMapping("/educacaoespecial")
+	public ModelAndView educacaoEspecial() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/educacao_especial");
 		
 		return mv;
 	}
@@ -154,14 +172,11 @@ public class InicioController {
 	
 	@GetMapping("/semanasLiberadas/{codigoSerie}")
 	public ModelAndView pesquisarSite(SemanaFilter semanaFilter, BindingResult binding,@PageableDefault(size = 6) Pageable pageable,
-			HttpServletRequest httpServletRequest, @PathVariable("codigoSerie") Long codigoSerie) {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
+		HttpServletRequest httpServletRequest, @PathVariable("codigoSerie") Long codigoSerie) {		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();		
 		ModelAndView mv = new ModelAndView("plano/ListaSemanasSite");
 		mv.addObject("semanas", this.semanas.buscaSemanasSite(authentication.getName(), this.series.getOne(codigoSerie)));
-		mv.addObject("serie", codigoSerie);
-		
+		mv.addObject("serie", codigoSerie);		
 		return mv;
 	}
 	
