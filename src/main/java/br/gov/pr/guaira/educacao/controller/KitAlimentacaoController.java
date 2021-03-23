@@ -41,7 +41,7 @@ public class KitAlimentacaoController {
 	
 	@GetMapping("/nova")
 	public ModelAndView nova(KitAlimentacao kitAlimentacao) {
-		ModelAndView mv = new ModelAndView("kitAlimentacao/cadastroKitAlimentacao");
+		ModelAndView mv = new ModelAndView("kitAlimentacao/CadastroKitAlimentacao");
 		mv.addObject("seriesColegios", this.seriesColegios.findByOrderByNomeAsc());
 		mv.addObject("colegios", this.colegios.findByOrderByNomeAsc());		
 		return mv;

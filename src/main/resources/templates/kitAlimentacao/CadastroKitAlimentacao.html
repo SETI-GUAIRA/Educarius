@@ -8,7 +8,7 @@
 
  
   <br> <br> <br> <br><br><br>
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Cadastro Kit Alimentacao</h2>
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Cadastro Kit Alimentação</h2>
 
       <!-- Icon Divider -->
       <div class="divider-custom">
@@ -30,12 +30,12 @@
 			<div class="nomeForm">DADOS ALUNO</div>		
 			<div class="row  bw-required">
 				<div class="col-sm-12  form-group"plano:classforerror="nome_aluno">
-						<label for="nome_aluno" class="control-label">Nome
+						<label for="nome_aluno" class="control-label">Nome *
 							</label> <input id="nome_aluno" type="text" class="form-control"
 							th:field="*{nome_aluno}" />
 				</div>
 				<div class="col-sm-6 form-group" plano:classforerror="colegio">
-					<label for="colegio" class="control-label">Colégio</label> 
+					<label for="colegio" class="control-label">Colégio *</label> 
 					<div class="bw-field-action">
 						<select id="colegio" class="form-control" th:field="*{colegio}">
 							<option value="">Selecione um colégio</option>
@@ -45,7 +45,7 @@
 					</div>
 				</div>			
 				<div class="col-sm-2  form-group" plano:classforerror="serie">
-					<label for="serie" class="control-label">Série</label>
+					<label for="serie" class="control-label">Série *</label>
 					<div class="bw-field-action">
 						<select id="serie" class="form-control" th:field="*{serie}">
 							<option value="">Selecione</option>
@@ -56,7 +56,7 @@
 				</div>
 				<div class="col-sm-2">
 						<div class="form-group" plano:classforerror="turno">
-						<label for="turno" class="control-label">Turno</label>
+						<label for="turno" class="control-label">Turno *</label>
 							<select class="form-control" th:field="*{turno}">
 								<option value="" readonly>Selecione</option>
 								<option th:each="turnos : ${turno}" th:value="${turnos}"
@@ -66,7 +66,7 @@
 					</div>
 					<div class="col-sm-2">
 						<div class="form-group" plano:classforerror="turma">
-						<label for="turma" class="control-label">Turma</label>
+						<label for="turma" class="control-label">Turma *</label>
 							<select class="form-control" th:field="*{turma}">
 								<option value="" readonly>Selecione</option>
 								<option th:each="turmas : ${turma}" th:value="${turmas}"
@@ -78,13 +78,13 @@
 			<div class="nomeForm">DADOS RESPONSAVEL</div>			
 			<div class="row  bw-required">				
 				<div class="col-sm-12  form-group" plano:classforerror="nome_responsavel">
-					<label for="nome_responsavel" class="control-label">Nome</label> 
+					<label for="nome_responsavel" class="control-label">Nome *</label> 
 					<input id="nome_responsavel" type="text" class="form-control" th:field="*{nome_responsavel}" />
 				</div>
 			</div>	
 			<div class="row  bw-required">				
 				<div class="col-sm-4  form-group" plano:classforerror="cpf">
-					<label for="cpf" class="control-label">CPF</label> 
+					<label for="cpf" class="control-label">CPF *</label> 
 					<input id="cpf" type="text" class="form-control js-documento-cpf" th:field="*{cpf}" />
 				</div>
 				
@@ -95,7 +95,7 @@
 				</div>
 				<div class="col-sm-4  form-group"
 					plano:classforerror="telefone_contato">
-					<label for="telefone_contato" class="control-label">Telefone</label> 
+					<label for="telefone_contato" class="control-label">Telefone *</label> 
 					<input id="telefone_contato" type="text" class="form-control js-cell-phone" th:field="*{telefone_contato}" />
 				</div>			
 			</div>	
