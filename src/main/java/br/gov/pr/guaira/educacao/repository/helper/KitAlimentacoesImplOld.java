@@ -17,12 +17,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import br.gov.pr.guaira.educacao.filter.KitAlimentacaoFilter;
+
 import br.gov.pr.guaira.educacao.model.KitAlimentacao;
 import br.gov.pr.guaira.educacao.repository.paginacao.PaginacaoUtil;
 
-public class KitAlimentacoesImpl implements KitAlimentacoesQueries{
+public class KitAlimentacoesImplOld implements KitAlimentacoesQueries{
 
 	@PersistenceContext
 	private EntityManager manager;
@@ -37,7 +39,8 @@ public class KitAlimentacoesImpl implements KitAlimentacoesQueries{
 		CriteriaQuery<KitAlimentacao> query = builder.createQuery(KitAlimentacao.class);
 		Root<KitAlimentacao> kitAlimentacaoEntity = query.from(KitAlimentacao.class);
 		kitAlimentacaoEntity.fetch("colegio", JoinType.INNER);
-		kitAlimentacaoEntity.fetch("serieColegio", JoinType.INNER);		
+		kitAlimentacaoEntity.fetch("serieColegio", JoinType.INNER);
+		//kitAlimentacaoEntity.fetch("turma", JoinType.INNER);
 	
 		Predicate[] filtros = adicionarFiltro(filtro, kitAlimentacaoEntity);
 
@@ -55,14 +58,15 @@ public class KitAlimentacoesImpl implements KitAlimentacoesQueries{
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<KitAlimentacao> query = builder.createQuery(KitAlimentacao.class);
 		Root<KitAlimentacao> kitAlimentacaoEntity = query.from(KitAlimentacao.class);
-
 		kitAlimentacaoEntity.fetch("colegio", JoinType.INNER);
-		kitAlimentacaoEntity.fetch("serieColegio", JoinType.INNER);		
+		kitAlimentacaoEntity.fetch("serieColegio", JoinType.INNER);
+		//kitAlimentacaoEntity.fetch("turma", JoinType.INNER);
 	
 		
 		KitAlimentacaoFilter kitAlimentacaoFilter = new KitAlimentacaoFilter();
 		kitAlimentacaoFilter.setColegio(kitAlimentacao.getColegio());
-		kitAlimentacaoFilter.setSerieColegio(kitAlimentacao.getSerieColegio());		
+		kitAlimentacaoFilter.setSerieColegio(kitAlimentacao.getSerieColegio());
+		//kitAlimentacaoFilter.setTurma(kitAlimentacao.getTurma());
 	
 		
 		Predicate[] filtros = adicionarFiltro(kitAlimentacaoFilter, kitAlimentacaoEntity);
@@ -98,9 +102,6 @@ public class KitAlimentacoesImpl implements KitAlimentacoesQueries{
 			}
 			if (filtro.getTurma() != null){
 				predicateList.add(builder.equal(kitAlimentacaoEntity.get("turma"), filtro.getTurma()));
-			}
-			if (filtro.getTurno() != null){
-				predicateList.add(builder.equal(kitAlimentacaoEntity.get("turno"), filtro.getTurno()));
 			}
 			if (filtro.getNome_aluno() != null){
 				predicateList.add(builder.like(kitAlimentacaoEntity.get("nome_aluno"), "%"+filtro.getNome_aluno().toUpperCase()+"%"));

@@ -1,9 +1,13 @@
 package br.gov.pr.guaira.educacao.controller;
 
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -22,10 +26,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import br.gov.pr.guaira.educacao.controller.page.PageWrapper;
 import br.gov.pr.guaira.educacao.exception.ImpossivelExcluirEntidadeException;
 import br.gov.pr.guaira.educacao.filter.UsuarioFilter;
 import br.gov.pr.guaira.educacao.model.Usuario;
+import br.gov.pr.guaira.educacao.repository.Colegios;
 import br.gov.pr.guaira.educacao.repository.Grupos;
 import br.gov.pr.guaira.educacao.repository.Usuarios;
 import br.gov.pr.guaira.educacao.service.EmailUsuarioJaCadastrado;
@@ -35,7 +41,7 @@ import br.gov.pr.guaira.educacao.service.UsuarioService;
 
 @Controller
 @RequestMapping("/usuarios")
-public class UsuariosController {
+public class UsuariosController{
 
 	@Autowired
 	private Grupos grupos;
@@ -43,11 +49,17 @@ public class UsuariosController {
 	private UsuarioService usuarioService;
 	@Autowired
 	private Usuarios usuarios;
+	
+	@Autowired
+	private Colegios colegios;
+	
+	
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Usuario usuario) {
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
 		mv.addObject("grupos", grupos.findAll());
+		mv.addObject("colegios", this.colegios.findAll());		
 		return mv;
 	}
 
@@ -71,7 +83,7 @@ public class UsuariosController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(UsuarioFilter usuarioFilter, @PageableDefault(size=2) Pageable pageable,
+	public ModelAndView pesquisar(UsuarioFilter usuarioFilter, @PageableDefault(size=50) Pageable pageable,
 			HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("usuario/PesquisaUsuarios");
 		mv.addObject("grupos", grupos.findAll());

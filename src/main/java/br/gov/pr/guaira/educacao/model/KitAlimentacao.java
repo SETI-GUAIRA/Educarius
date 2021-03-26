@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import javax.validation.constraints.NotBlank;
@@ -48,7 +50,7 @@ public class KitAlimentacao implements Serializable{
 	@Column(nullable = false)
 	private String cpf;	
 	private String rg;
-	@NotBlank(message="Informe telefone para contato")	
+	
 	private String telefone_contato;
 	@Column(nullable = false)
 	private LocalDate data_cadastro;	
@@ -60,8 +62,8 @@ public class KitAlimentacao implements Serializable{
 	
 	@NotNull(message = "Informe a série")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "serie", referencedColumnName = "codigo")
-	private Serie serie;
+	@JoinColumn(name = "serieColegio", referencedColumnName = "codigo")
+	private SerieColegio serieColegio;
 	
 	@NotNull(message = "Informe o turno")
 	@Enumerated(EnumType.STRING)	
@@ -71,12 +73,22 @@ public class KitAlimentacao implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private Turma turma;
 	
+	
+	
 	@Column
-	private Boolean ativo;
+	private Boolean ativo = true;
+	
+	
+	@PrePersist
+	@PreUpdate
+	private void toUpperCase() {
+		this.nome_aluno = this.nome_aluno.toUpperCase();
+	}
 	
 	public boolean isNova() {
 		return this.codigo == null;
 	}
+
 	
 //	@Override
 //	public int hashCode() {

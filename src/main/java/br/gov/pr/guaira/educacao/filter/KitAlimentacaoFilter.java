@@ -2,7 +2,9 @@ package br.gov.pr.guaira.educacao.filter;
 
 import java.time.LocalDate;
 import br.gov.pr.guaira.educacao.model.Colegio;
-import br.gov.pr.guaira.educacao.model.Serie;
+import br.gov.pr.guaira.educacao.model.SerieColegio;
+import br.gov.pr.guaira.educacao.model.Turma;
+import br.gov.pr.guaira.educacao.model.Turno;
 import lombok.Data;
 
 
@@ -11,8 +13,8 @@ public class KitAlimentacaoFilter {
     
 	private LocalDate dataCadastro;
 	private Colegio colegio;	
-	private Serie serie;
-
-	
-	
+	private SerieColegio serieColegio;
+	private Turma turma;
+	private Turno turno;
+	private String nome_aluno;
 }

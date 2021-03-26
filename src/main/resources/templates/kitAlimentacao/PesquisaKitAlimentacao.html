@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+	
+<head>
+<title>Pesquisa Kit</title>
+</head>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1>Pesquisa - Kit Alimentação</h1>
+				</div>
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn btn-default" th:href="@{/kitAlimentacao/editar}"> <i
+							class="glyphicon  glyphicon-plus-sign"></i> <span
+							class="hidden-xs  hidden-sm">Nova</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${kitAlimentacaoFilter}">
+			<div class="row">
+				<div class="col-sm-12  form-group ">
+					<label for="colegio" class="control-label">Nome Aluno</label> 					
+				   <input	type="text" class="form-control" id="nome" th:field="*{nome_aluno}" />
+				</div>				
+			</div>
+			
+			
+<!-- 			<div sec:authorize ="hasRole('COLEGIO_ADM')" class="row">			 -->
+            <div sec:authorize ="hasRole('COLEGIO_ADM')" class="row">
+			<div  class="col-sm-12  form-group">
+					<label for="colegio" class="control-label">colegio</label> 
+					<div class="bw-field-action">
+						<select id="colegio" class="form-control" th:field="*{colegio}">
+							<option value="">Selecione o colegio</option>
+							<option th:each="colegio : ${colegios}"
+								th:value="${colegio.codigo}" th:text="${colegio.nome}"></option>
+						</select>
+					</div>
+			</div></div>
+			<div class="row">		
+			<div class="col-sm-4  form-group">
+					<label for="serieColegio" class="control-label">Série </label>
+					<div class="bw-field-action">
+						<select id="serieColegio" class="form-control" th:field="*{serieColegio}">
+							<option value="">Selecione</option>
+							<option th:each="serieColegio : ${seriesColegios}" th:value="${serieColegio.codigo}"
+								th:text="${serieColegio.nome}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-4  form-group">
+					<label for="turma" class="control-label">Turma </label>
+							<select class="form-control" th:field="*{turma}">
+								<option value="" readonly>Selecione</option>
+								<option th:each="turmas : ${turma}" th:value="${turmas}"
+									th:text="${turmas.descricao}">Turma</option>
+							</select>
+				</div>
+				<div class="col-sm-4  form-group">
+					<label for="turno" class="control-label">Turno </label>
+							<select class="form-control" th:field="*{turno}">
+								<option value="" readonly>Selecione</option>
+								<option th:each="turnos : ${turno}" th:value="${turnos}"
+									th:text="${turnos.descricao}">Turma</option>
+							</select>
+				</div>
+			</div>
+			
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+		</form>
+		<div class="table-responsive  py-tabela-simples">
+			<table class="table  table-hover">
+				<thead>
+					<tr>
+						<th>
+							<plano:order page="${pagina}" field="nome_aluno" text="Nome"/>
+						</th>						
+						<th>
+							<plano:order page="${pagina}" field="colegio" text="Colégio"/>
+						</th>
+						<th>
+							<plano:order page="${pagina}" field="serieColegio" text="Serie"/>
+						</th>
+						<th>
+							<plano:order page="${pagina}" field="turma" text="Turma"/>
+						</th>
+						<th>
+							<plano:order page="${pagina}" field="turno" text="Turno"/>
+						</th>
+						<th>
+							<plano:order page="${pagina}" field="ativo" text="Ativo"/>
+						</th>
+						<th class="table-hospedagem-col-acoes  text-center">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="kitAlimentacao : ${pagina.conteudo}">
+					
+						<td th:text="${kitAlimentacao.nome_aluno}"></td>						
+						<td th:text="${kitAlimentacao.colegio.nome}"></td>
+						<td th:text="${kitAlimentacao.serieColegio.nome}"></td>
+						<td th:text="${kitAlimentacao.turma}"></td>
+						<td th:text="${kitAlimentacao.turno}"></td>
+						<td>
+							<th:block th:if="${kitAlimentacao.ativo}">
+								<span class="label label-success" th:text="Ativo"></span>
+							</th:block>
+							<th:block th:if="${not kitAlimentacao.ativo}">
+								<span class="label label-danger" th:text="Inativo"></span>
+							</th:block>
+							
+						</td>
+						
+						<td class="text-center">
+							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" 
+							 th:href="@{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})}"> 
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+<!-- 							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir"  th:href="@{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})}" -->
+<!-- 							th:attr="data-codigo=${kitAlimentacao.codigo}, data-url=@{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})},  -->
+<!-- 							data-objeto=|${kitAlimentacao.colegio.nome} do ${kitAlimentacao.serieColegio.nome} da Turma ${kitAlimentacao.turma}|">  -->
+<!-- 								<i class="glyphicon glyphicon-remove"></i> -->
+<!-- 							</a> -->
+						</td>
+					</tr>
+
+				<tr th:if="${pagina.vazia}">
+						<td colspan="4">Nenhuma aula encontrada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<plano:pagination page="${pagina}"/>
+		
+	</div>
+</section>
+</html>

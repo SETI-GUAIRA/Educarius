@@ -107,7 +107,7 @@ public class UsuariosImpl implements UsuariosQueries{
 		if (filtro != null) {
 			
 			if (!StringUtils.isEmpty(filtro.getNome())) {
-				predicates.add(builder.like(rootUsuario.get("nome"), "%"+filtro.getNome()+"%"));
+				predicates.add(builder.like(rootUsuario.get("nome"), "%"+filtro.getNome().toUpperCase()+"%"));
 			}
 			
 			if (!StringUtils.isEmpty(filtro.getEmail())) {

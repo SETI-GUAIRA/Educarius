@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layoutPadrao}" xmlns:lambarius="http://ti.guaira.pr.gov.br">
+  
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/layout/css/toastr/toastr.min.css}">
+</head>
+
+<body>
+  <div layout:fragment="conteudo">
+	  <section class="content-header">
+		  <div class="container-fluid">
+		      <div class="row mb-2">
+			      <h2 th:text="${conn}" /></h2>
+		  	  </div>
+		  </div>  
+      </section>    
+  	  <section class="content">
+	      <div class="container-fluid">	
+		      <div class="col-md-6">
+	             <div class="card card-navy">
+	             	<div class="card-header">
+                		<h3 class="card-title">Todos Pedidos de Kit</h3>
+                	</div>	<br><br><br><br><br><br>
+                	
+                	<div class="card-body">
+               			<div class="row">
+                  			<div class="col-md-6">
+                  			<a class="btn  btn-primary   btn-xs  js-tooltip  js-carterinha-btn" title="relatorio"
+                             th:href="@{/relatorios/todas/(acao='V')}" target="_blank">
+                          	<i class="far fa-folder-open fa-lg"></i>
+                           </a> 
+                  				<a th:href="@{/relatorios/todas/(acao='V')}" target="_blank">Abrir</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                  				
+                  			<a class="btn  btn-primary  btn-xs  js-tooltip  js-carterinha-btn" title="relatorio"
+                             th:href="@{/relatorios/todas/(acao='D')}">
+                          	<i class="fas fa-download fa-lg"></i>
+                           </a>	
+								<a th:href="@{/relatorios/todas/(acao='D')}">Download</a>
+                  	        </div>
+                  		</div>
+                  	</div>          
+	             </div>
+	          </div>
+	      </div>
+      </section>
+<!--       <section class="content"> -->
+<!-- 	      <div class="container-fluid">	 -->
+<!-- 		      <div class="col-md-6"> -->
+<!-- 	             <div class="card card-navy">	              -->
+<!-- 	             	<div class="card-header"> -->
+<!--                 		<h3 class="card-title">Carteirinha por associação</h3> -->
+<!--                 	</div>	 -->
+<!--                 	<form role="form" class="form" th:object="${pescador}" th:action="@{/carteirinhas/associacao}" method="get" target="_blank"> -->
+<!--                 	<div class="card-body"> -->
+<!--                			<div class="row"> -->
+<!--                   			<div class="col-md-12">                  				 -->
+<!-- 									<select  id="associacao" name="associacao" class="form-control select2"  required="required">									             -->
+<!-- 						                        <option selected value="" >Selecione uma associação</option> -->
+<!-- 						                        <option th:each="associacao : ${associacoes}" th:value="${associacao.codigo}" -->
+<!-- 						                          th:text="${associacao.nome}"></option> -->
+<!-- 						            </select> 	 -->
+<!--                   	        </div>                  	         -->
+<!--                   		</div> -->
+<!--                   	</div>  -->
+<!--                   	<div class="card-footer" align="right">						            -->
+<!-- 						 <button type="submit" class="btn btn-primary" >Buscar</button> -->
+<!-- 					</div>   -->
+<!-- 					</form>        -->
+<!-- 	             </div>	              -->
+<!-- 	          </div> -->
+<!-- 	      </div> -->
+<!--       </section> -->
+	</div>
+</body>
+</html>

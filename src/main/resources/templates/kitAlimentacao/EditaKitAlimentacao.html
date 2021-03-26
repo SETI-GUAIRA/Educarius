@@ -1,35 +1,45 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/LayoutMerenda.html}">
-
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+	
+	
+<head>
+<title>Pesquisa Kit</title>
+</head>
 <section layout:fragment="conteudo">
-
- 
-  <br> <br> <br> <br><br><br>
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Cadastro Kit Alimentação</h2>
-
-      <!-- Icon Divider -->
-      <div class="divider-custom">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fas fa-star"></i>
-        </div>
-        <div class="divider-custom-line"></div>
-      </div>     
-     
-    <div class="container fundoForm">
-           
-    	<form method="POST" th:object="${kitAlimentacao}"
-			class="form-vertical  js-form-loading"		
-            th:action="@{/kitAlimentacao/nova}">
-			
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1 th:if="${kitAlimentacao.nova}">Cadastro - Kit Alimentção</h1>
+					<h1 th:unless="${kitAlimentacao.nova}" th:text="|Edição - ${kitAlimentacao.nome_aluno}|"></h1>
+				</div>
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn btn-default" th:href="@{/kitAlimentacao}"> <i
+							class="glyphicon  glyphicon-plus-sign"></i> <span
+							class="hidden-xs  hidden-sm">pesquisar</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	 
+	<div class="container-fluid">
+	
+		<form method="POST" th:object="${kitAlimentacao}"
+			class="form-vertical  js-form-loading"
+			th:action="${kitAlimentacao.nova} ? @{/kitAlimentacao/editar} : @{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})}">
 			<input type="hidden" th:field="*{codigo}" />
-			<input id="ativo" type="hidden" class="form-control" th:field="*{ativo}" />			
 			<div layout:insert="fragments/Mensagem"></div>
 	        <div layout:insert="fragments/MensagemErro"></div> 
-			<div class="nomeForm">DADOS ALUNO</div>		
+			<div class="nomeForm">DADOS ALUNO</div>	
+			
 			<div class="row  bw-required">
 				<div class="col-sm-12  form-group"plano:classforerror="nome_aluno">
 						<label for="nome_aluno" class="control-label">Nome *
@@ -98,16 +108,27 @@
 				<div class="col-sm-4  form-group">
 					<label for="telefone_contato" class="control-label">Telefone *</label> 
 					<input id="telefone_contato" type="text" class="form-control js-cell-phone" th:field="*{telefone_contato}" />
-				</div>			
+				</div>	
+				<div class="col-sm-4  form-group">
+				<label class="control-label">Status</label>
+						<div>
+							<input type="checkbox"  class="js-status" data-size="small" data-off-color="danger"
+							data-on-text="Ativo" data-off-text="Inativo" th:field="*{ativo}"/>
+						</div>
+			   </div>						
 			</div>	
             <div class="separador"></div>
 			<div class="form-group text-right">
 				<button class="btn  btn-primary  js-btn-submit" type="submit">Salvar</button>
 			</div>
 		</form>
-    
-    </div>
-  </section>
-
-
+		
+	</div>
+</section>
+<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+		<script>
+			$('.js-status').bootstrapSwitch();
+		</script>
+	</th:block>
 </html>

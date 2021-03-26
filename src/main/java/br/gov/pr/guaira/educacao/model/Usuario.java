@@ -6,17 +6,21 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -53,11 +57,31 @@ public class Usuario implements Serializable {
 				inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
 	private List<Grupo> grupos;
 	
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "colegio", referencedColumnName = "codigo")
+	private Colegio colegio;	
+	
+	
+	
+	
 	@PreUpdate
 	private void preUpdate() {
 		this.confirmacaoSenha = senha;
 	}
 	
+	
+	public boolean isNovo() {
+		return codigo == null;
+	}
+	public Colegio getColegio() {
+		return colegio;
+	}
+
+	public void setColegio(Colegio colegio) {
+		this.colegio = colegio;
+	}
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -67,8 +91,9 @@ public class Usuario implements Serializable {
 	public String getNome() {
 		return nome;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String nome) {		
+		//this.nome = nome;
+		this.nome = nome.toUpperCase();
 	}
 	public String getEmail() {
 		return email;
@@ -109,9 +134,6 @@ public class Usuario implements Serializable {
 		this.confirmacaoSenha = confirmacaoSenha;
 	}
 	
-	public boolean isNovo() {
-		return codigo == null;
-	}
 	
 	@Override
 	public int hashCode() {
