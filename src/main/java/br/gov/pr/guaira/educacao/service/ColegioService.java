@@ -1,5 +1,6 @@
 package br.gov.pr.guaira.educacao.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.PersistenceException;
@@ -11,9 +12,10 @@ import org.springframework.stereotype.Service;
 import br.gov.pr.guaira.educacao.exception.ImpossivelExcluirEntidadeException;
 import br.gov.pr.guaira.educacao.exception.SerieJaCadastradaException;
 import br.gov.pr.guaira.educacao.model.Colegio;
-import br.gov.pr.guaira.educacao.model.Serie;
+
 import br.gov.pr.guaira.educacao.repository.Colegios;
-import br.gov.pr.guaira.educacao.repository.Series;
+;
+
 
 @Service
 public class ColegioService {
@@ -43,4 +45,9 @@ public class ColegioService {
 		}
 		
 	}
+
+	public List<Colegio> buscarTodos() {
+	    return colegios.findAllByOrderByNomeAsc();
+	  }
+	
 }

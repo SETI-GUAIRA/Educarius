@@ -14,5 +14,7 @@ public interface Colegios extends JpaRepository<Colegio, Long>, ColegiosQueries 
 
 	public Optional<Colegio> findByNomeIgnoreCase(String nome);
 	public List<Colegio> findByOrderByNomeAsc();
+	public List<Colegio> findAllByOrderByNomeAsc();
+	
 	
 }

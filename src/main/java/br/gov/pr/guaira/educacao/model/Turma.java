@@ -2,7 +2,7 @@ package br.gov.pr.guaira.educacao.model;
 
 public enum Turma {
 
-	A("A"), B("B"), C("C"), D("D"), E("E"), F("F"), H("H");
+	A("A"), B("B"), C("C"), D("D"), E("E"), F("F"), G("G"), H("H");
 	
 	private Turma(String descricao) {
 		this.descricao = descricao;

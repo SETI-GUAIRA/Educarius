@@ -11,8 +11,7 @@
 
         		<li class="aw-menu__item" portal:menu="@{/principal}">
           			<a th:href="@{/principal}"><i class="fa  fa-fw  fa-home"></i><span>Home</span></a>
-        		</li>
-        		
+        		</li>        		
         		<li class="aw-menu__item">
           			<a href="#">
             			<i class="fa  fa-fw  fa-database"></i><span>Cadastros</span>
@@ -29,8 +28,11 @@
 			            <li class="aw-menu__item  aw-menu__item--link" portal:menu="@{/semanas.*}">
 			            	<a sec:authorize ="hasRole('CADASTRAR_MATERIA')" th:href="@{/semanas}">Semanas</a>
 			            </li>
-			            <li class="aw-menu__item  aw-menu__item--link" portal:menu="@{/kitAlimentacao.*}">
+			            <li th:if="${#authentication.principal.usuario.colegio != null}" class="aw-menu__item  aw-menu__item--link" portal:menu="@{/kitAlimentacao.*}">
 			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/kitAlimentacao}">Kit Alimentação</a>
+			            </li>
+			            <li th:if="${#authentication.principal.usuario.colegio == null}" class="aw-menu__item  aw-menu__item--link" portal:menu="@{/kitAlimentacao.*}">
+			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/kitAlimentacao/pesquisa}">Kit Alimentação</a>
 			            </li>
 			            <li th:if="${#authentication.principal.usuario.colegio == null}" class="aw-menu__item  aw-menu__item--link" portal:menu="@{/colegios.*}">
 			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/colegios}">Colégios</a>
@@ -40,18 +42,32 @@
 			            </li>
           			</ul>
         		</li>
+        		<li class="aw-menu__item" th:if="${#authentication.principal.usuario.colegio == null}">
+          			<a sec:authorize ="hasRole('COLEGIO')"  href="#">
+            			<i class="fa  fa-fw  fa-database"></i><span>Pedidos</span>
+            			<i class="aw-menu__navigation-icon  fa"></i>
+          			</a>
+          			<ul class="aw-menu__list  aw-menu__list--sublist">
+        		         <li  class="aw-menu__item  aw-menu__item--link">
+			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/pedidos/novo}">Gerar Pedido</a>
+			            </li>
+<!-- 			            <li class="aw-menu__item  aw-menu__item--link"> -->
+<!-- 			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/relatorios}">Lista Assinatura</a> -->
+<!-- 			            </li> -->
+          			</ul>
+        		</li>
         		<li class="aw-menu__item">
           			<a sec:authorize ="hasRole('COLEGIO')"  href="#">
             			<i class="fa  fa-fw  fa-database"></i><span>Relatorios</span>
             			<i class="aw-menu__navigation-icon  fa"></i>
           			</a>
           			<ul class="aw-menu__list  aw-menu__list--sublist">
-        		    <li class="aw-menu__item  aw-menu__item--link">
+        		         <li th:if="${#authentication.principal.usuario.colegio != null}"  class="aw-menu__item  aw-menu__item--link">
 			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/relatorios}">Pedidos Kit Alimentação</a>
 			            </li>
-			            <li class="aw-menu__item  aw-menu__item--link">
-			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/serieColegio}">Lista Assinatura</a>
-			            </li>
+<!-- 			            <li class="aw-menu__item  aw-menu__item--link"> -->
+<!-- 			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/relatorios}">Lista Assinatura</a> -->
+<!-- 			            </li> -->
           			</ul>
         		</li>
         		<li class="aw-menu__item">

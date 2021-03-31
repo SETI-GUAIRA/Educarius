@@ -69,7 +69,7 @@ public class KitAlimentacaoController {
 		mv.addObject("colegios", this.colegios.findAll());		
 		return mv;
 	}
-	
+	//REFERENTE A TELA PRINCIPAL DE CADASTRO PUBLICA
 	@PostMapping("/nova")
 	public ModelAndView salvar(@Valid KitAlimentacao kitAlimentacao, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
@@ -96,7 +96,7 @@ public class KitAlimentacaoController {
 		mv.addObject("colegios", this.colegios.findAll());		
 		return mv;
 	}
-	
+	//REFERENTE A TELA DE CADASTRO ADM
 	@PostMapping(value = {"/gravar", "{\\d+}"})
 	public ModelAndView gravar(@Valid KitAlimentacao kitAlimentacao, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
@@ -123,7 +123,7 @@ public class KitAlimentacaoController {
 		return mv;
 	}
 	
-
+  //PESQUISA PARA COLEGIOS 
 	@GetMapping	
 	public ModelAndView pesquisar(KitAlimentacaoFilter kitAlimentacaoFilter, BindingResult result, @PageableDefault(size=10) org.springframework.data.domain.Pageable pageable, 
 			 HttpServletRequest httpServletRequest) {
@@ -142,6 +142,19 @@ public class KitAlimentacaoController {
 		
 		return mv;
 	}
+	 //PESQUISA PARA ADM consegue pesquisar alunos de todos colegios
+		@GetMapping("/pesquisa")	
+		public ModelAndView pesquisarAdm(KitAlimentacaoFilter kitAlimentacaoFilter, BindingResult result, @PageableDefault(size=10) org.springframework.data.domain.Pageable pageable, 
+				 HttpServletRequest httpServletRequest) {
+			ModelAndView mv = new ModelAndView("kitAlimentacao/PesquisaKitAlimentacaoAdm");		
+			mv.addObject("seriesColegios", this.seriesColegios.findAll());
+			mv.addObject("colegios", this.colegios.findAll());	
+
+			PageWrapper<KitAlimentacao> paginaWrapper = new PageWrapper<>(this.kitAlimentacoes.filtrar(kitAlimentacaoFilter, pageable), httpServletRequest);
+			mv.addObject("pagina", paginaWrapper);
+			
+			return mv;
+		}
 	
 	@DeleteMapping("/{codigo}")
 	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") KitAlimentacao kitAlimentacao){

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+	
+	
+<head>
+<title>Lançar Pedido de Kit Alimentação</title>
+</head>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1>Lançar Pedido de Kit Alimentação Referente ao mês: 
+							<script type="text/javascript">document.write(new Date().getDay()+1);</script>
+					</h1>
+				</div>
+<!-- 				<div class="col-xs-2"> -->
+<!-- 					<div class="aw-page-header-controls"> -->
+<!-- 						<a class="btn btn-default" th:href="@{/colegios/nova}"> <i -->
+<!-- 							class="glyphicon  glyphicon-plus-sign"></i> <span -->
+<!-- 							class="hidden-xs  hidden-sm">Nova</span> -->
+<!-- 						</a> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid"> 
+		<form method="POST" th:object="${kitAlimentacao}" class="form-vertical  js-form-loading"
+			th:action="@{/pedidos/novo}">
+
+			<input type="hidden" th:field="*{codigo}" />
+			<div layout:insert="fragments/Mensagem"></div>
+			<div layout:insert="fragments/MensagemErro"></div>
+
+<!-- 			<div class="row  bw-required"> -->
+<!-- 				<div class="col-sm-12  form-group" > -->
+<!-- 					<label for="nome" class="control-label">Data:</label> <input -->
+<!-- 						id="nome" type="text" class="form-control" th:field="*{nome_aluno}" /> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			<div class="form-group">
+				<button class="btn  btn-primary  js-btn-submit" type="submit">Lançar</button>
+			</div>
+		</form>
+<!-- 		<div class="table-responsive  py-tabela-simples"> -->
+<!-- 			<table class="table  table-hover"> -->
+<!-- 				<thead> -->
+<!-- 					<tr> -->
+<!-- 						<th> -->
+<!-- 							<plano:order page="${pagina}" field="nome" text="Nome"/> -->
+<!-- 						</th> -->
+<!-- 						<th class="table-hospedagem-col-acoes  text-center">Ações</th> -->
+<!-- 					</tr> -->
+<!-- 				</thead> -->
+<!-- 				<tbody> -->
+<!-- 					<tr th:each="colegio : ${pagina.conteudo}"> -->
+					
+<!-- 						<td th:text="${colegio.nome}"></td> -->
+<!-- 						<td class="text-center"> -->
+<!-- 							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar"  -->
+<!-- 							 th:href="@{/colegios/{codigo}(codigo=${colegio.codigo})}">  -->
+<!-- 								<i class="glyphicon glyphicon-pencil"></i> -->
+<!-- 							</a> -->
+<!-- 							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="#" -->
+<!-- 							th:attr="data-codigo=${colegio.codigo}, data-url=@{/colegios/{codigo}(codigo=${colegio.codigo})},  -->
+<!-- 							data-objeto=${colegio.nome}"> -->
+<!-- 								<i class="glyphicon glyphicon-remove"></i> -->
+<!-- 							</a> -->
+<!-- 						</td> -->
+<!-- 					</tr> -->
+
+<!-- 				<tr th:if="${pagina.vazia}"> -->
+<!-- 						<td colspan="4">Nenhuma escola encontrada</td> -->
+<!-- 					</tr> -->
+<!-- 				</tbody> -->
+<!-- 			</table> -->
+<!-- 		</div> -->
+<!-- 			<plano:pagination page="${pagina}"/> -->
+
+	</div> 
+</section>
+</html>

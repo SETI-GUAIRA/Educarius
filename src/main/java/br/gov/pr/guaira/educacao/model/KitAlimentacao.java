@@ -49,8 +49,7 @@ public class KitAlimentacao implements Serializable{
 	@CPF(message = "Número do CPF está inválido!")	
 	@Column(nullable = false)
 	private String cpf;	
-	private String rg;
-	
+	private String rg;	
 	private String telefone_contato;
 	@Column(nullable = false)
 	private LocalDate data_cadastro;	
