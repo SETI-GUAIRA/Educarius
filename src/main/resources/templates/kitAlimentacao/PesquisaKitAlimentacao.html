@@ -33,7 +33,7 @@
 			<div class="row">
 				<div class="col-sm-12  form-group ">
 					<label for="colegio" class="control-label">Nome Aluno</label> 					
-				   <input	type="text" class="form-control" id="nome" th:field="*{nome_aluno}" />
+				   <input	type="text" class="form-control" id="nome" th:field="*{nomeAluno}" />
 				</div>				
 			</div>
 			
@@ -86,7 +86,7 @@
 				<thead>
 					<tr>
 						<th>
-							<plano:order page="${pagina}" field="nome_aluno" text="Nome"/>
+							<plano:order page="${pagina}" field="nomeAluno" text="Nome"/>
 						</th>						
 						<th>
 							<plano:order page="${pagina}" field="colegio" text="Colégio"/>
@@ -109,7 +109,7 @@
 				<tbody>
 					<tr th:each="kitAlimentacao : ${pagina.conteudo}">
 					
-						<td th:text="${kitAlimentacao.nome_aluno}"></td>						
+						<td th:text="${kitAlimentacao.nomeAluno}"></td>						
 						<td th:text="${kitAlimentacao.colegio.nome}"></td>
 						<td th:text="${kitAlimentacao.serieColegio.nome}"></td>
 						<td th:text="${kitAlimentacao.turma}"></td>
@@ -129,11 +129,11 @@
 							 th:href="@{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})}"> 
 								<i class="glyphicon glyphicon-pencil"></i>
 							</a>
-<!-- 							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir"  th:href="@{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})}" -->
-<!-- 							th:attr="data-codigo=${kitAlimentacao.codigo}, data-url=@{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})},  -->
-<!-- 							data-objeto=|${kitAlimentacao.colegio.nome} do ${kitAlimentacao.serieColegio.nome} da Turma ${kitAlimentacao.turma}|">  -->
-<!-- 								<i class="glyphicon glyphicon-remove"></i> -->
-<!-- 							</a> -->
+							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="#"
+							th:attr="data-codigo=${kitAlimentacao.codigo}, data-url=@{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})}, 
+							data-objeto=${kitAlimentacao.nomeAluno}">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
 						</td>
 					</tr>
 

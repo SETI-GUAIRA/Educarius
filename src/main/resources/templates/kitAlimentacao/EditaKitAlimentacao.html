@@ -1,22 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/LayoutPadrao}"
-	xmlns:plano="http://ti.guaira.pr.gov.br"
-	xmlns:data="http://www.thymeleaf.org/extras/data">
-	
-	
-<head>
-<title>Pesquisa Kit</title>
-</head>
+	layout:decorate="~{layout/LayoutPadrao.html}">
+
 <section layout:fragment="conteudo">
-	<div class="page-header">
+<!--     <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Cadastro de Kit Alimentação</h2>  -->
+    <div class="page-header">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-10">
-					<h1 th:if="${kitAlimentacao.nova}">Cadastro - Kit Alimentção</h1>
-					<h1 th:unless="${kitAlimentacao.nova}" th:text="|Edição - ${kitAlimentacao.nome_aluno}|"></h1>
+					<h2 th:if="${kitAlimentacao.nova}" class="TituloForm">Cadastro de Kit Alimentação</h2> 
+					<h2 class="TituloForm" th:unless="${kitAlimentacao.nova}" th:text="|Edição - ${kitAlimentacao.nomeAluno}|"></h2>
 				</div>
 				<div class="col-xs-2">
 					<div class="aw-page-header-controls">
@@ -29,34 +24,37 @@
 			</div>
 		</div>
 	</div>
-	 
-	<div class="container-fluid">
-	
-		<form method="POST" th:object="${kitAlimentacao}"
+        
+    <div class="container fundoForm">  
+    	<form method="POST" th:object="${kitAlimentacao}"
 			class="form-vertical  js-form-loading"
 			th:action="${kitAlimentacao.nova} ? @{/kitAlimentacao/editar} : @{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})}">
 			<input type="hidden" th:field="*{codigo}" />
 			<div layout:insert="fragments/Mensagem"></div>
 	        <div layout:insert="fragments/MensagemErro"></div> 
-			<div class="nomeForm">DADOS ALUNO</div>	
-			
+	        
+			<div class="nomeForm">DADOS ALUNO</div>				
 			<div class="row  bw-required">
-				<div class="col-sm-12  form-group"plano:classforerror="nome_aluno">
-						<label for="nome_aluno" class="control-label">Nome *
-							</label> <input id="nome_aluno" type="text" class="form-control"
-							th:field="*{nome_aluno}" />
+				<div class="col-sm-12  form-group"plano:classforerror="nomeAluno">
+						<label for="nomeAluno" class="control-label">Nome *
+							</label> <input id="nomeAluno" type="text" class="form-control"
+							th:field="*{nomeAluno}" />
 				</div>
-				<div class="col-sm-6 form-group" plano:classforerror="colegio">
+				
+				
+				<div class="col-sm-6 form-group" plano:classforerror="colegio" hidden>
 					<label for="colegio" class="control-label">Colégio *</label> 
 					<div class="bw-field-action">
-						<select id="colegio" class="form-control" th:field="*{colegio}">
+						<select id="colegio" class="form-control" th:field="*{colegio}" >
 							<option value="">Selecione um colégio</option>
-							<option th:each="colegio : ${colegios}"
+							<option th:each="colegio : ${colegios}" 
 								th:value="${colegio.codigo}" th:text="${colegio.nome}"></option>
 						</select>
 					</div>
-				</div>			
-				<div class="col-sm-2  form-group" plano:classforerror="serieColegio">
+				</div>	
+				
+						
+				<div class="col-sm-4  form-group" plano:classforerror="serieColegio">
 					<label for="serieColegio" class="control-label">Série *</label>
 					<div class="bw-field-action">
 						<select id="serieColegio" class="form-control" th:field="*{serieColegio}">
@@ -66,7 +64,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-sm-2">
+				<div class="col-sm-4">
 						<div class="form-group" plano:classforerror="turno">
 						<label for="turno" class="control-label">Turno *</label>
 							<select class="form-control" th:field="*{turno}">
@@ -76,7 +74,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-4">
 						<div class="form-group" plano:classforerror="turma">
 						<label for="turma" class="control-label">Turma *</label>
 							<select class="form-control" th:field="*{turma}">
@@ -95,21 +93,49 @@
 				</div>
 			</div>	
 			<div class="row  bw-required">				
-				<div class="col-sm-4  form-group" plano:classforerror="cpf">
-					<label for="cpf" class="control-label">CPF *</label> 
-					<input id="cpf" type="text" class="form-control js-documento-cpf" th:field="*{cpf}" />
-				</div>
+<!-- 				<div class="col-sm-4  form-group" plano:classforerror="cpf"> -->
+<!-- 					<label for="cpf" class="control-label">CPF *</label>  -->
+<!-- 					<input id="cpf" type="text" class="form-control js-documento-cpf" th:field="*{cpf}" /> -->
+<!-- 				</div> -->
 				
-				<div class="col-sm-4  form-group"
-					plano:classforerror="rg">
-					<label for="rg" class="control-label">RG</label> 
-					<input id="rg" type="text" class="form-control" th:field="*{rg}" />
-				</div>
+				
+				
+				
+				
+				<div class="col-lg-2  col-sm-2  form-group  bw-required" >
+						<label for="origem" class="control-label">Tipo Documento</label>
+
+						<div>
+							<th:block th:each="tipoPessoa : ${tiposPessoa}">
+								<div class="radio  radio-inline" >
+									<input type="radio" th:id="|id_${tipoPessoa}|"
+										class="js-radio-tipo-pessoa" th:field="*{tipoPessoa}"
+										th:value="${tipoPessoa}"
+										data:documento="${tipoPessoa.documento}"
+										data:mascara="${tipoPessoa.mascara}"> <label
+										class="control-label" th:for="|id_${tipoPessoa}|"
+										th:text="${tipoPessoa.descricao}" >Física</label>
+								</div>
+							</th:block>
+						</div>
+					</div>
+				    <div class="col-sm-4  form-group" plano:classforerror="cpfOuCnpj">
+						<label for="cpfOuCnpj">CPF/RG/IC</label> <input id="cpfOuCnpj"
+							type="text" class="form-control" th:field="*{cpfOuCnpj}" disabled/>
+					</div>
+					
+					
+					
+<!-- 				<div class="col-sm-4  form-group" -->
+<!-- 					plano:classforerror="rg"> -->
+<!-- 					<label for="rg" class="control-label">RG</label>  -->
+<!-- 					<input id="rg" type="text" class="form-control" th:field="*{rg}" /> -->
+<!-- 				</div> -->
 				<div class="col-sm-4  form-group">
-					<label for="telefone_contato" class="control-label">Telefone *</label> 
+					<label for="telefone_contato" class="control-label">Telefone</label> 
 					<input id="telefone_contato" type="text" class="form-control js-cell-phone" th:field="*{telefone_contato}" />
 				</div>	
-				<div class="col-sm-4  form-group">
+				<div class="col-sm-2  form-group">
 				<label class="control-label">Status</label>
 						<div>
 							<input type="checkbox"  class="js-status" data-size="small" data-off-color="danger"
@@ -122,11 +148,13 @@
 				<button class="btn  btn-primary  js-btn-submit" type="submit">Salvar</button>
 			</div>
 		</form>
-		
-	</div>
-</section>
+    
+    </div>
+  </section>
+
 <th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+<!-- 		<script th:src="@{/javascripts/cliente.mascara-cpf-cnpj.js}"></script> -->
 		<script>
 			$('.js-status').bootstrapSwitch();
 		</script>

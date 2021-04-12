@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/","/educacaoInfantil","/educacaoespecial","/kitAlimentacao/cadastro","/kitAlimentacao/nova","/saudeEscola", "/encerramento-ano-letivo", "/atividadesBncc", "/videos", "/inclusao", "/brincadeiras", "/rotinas", 
+				.antMatchers("/","/educacaoInfantil","/educacaoespecial","/educacaoespecial/*","/kitAlimentacao/cadastro","/kitAlimentacao/nova","/saudeEscola", "/encerramento-ano-letivo", "/atividadesBncc", "/videos", "/inclusao", "/brincadeiras", "/rotinas", 
 						"/segunda", "/terca", "/quarta", "/quinta", "/sexta", "/sabado", "/domingo","/musicalizacao","/semanasLiberadas/*", 
 						"/aulasOnline/*/*", "/aula/*/*/*").permitAll()
 				.antMatchers("/materias/*").hasRole("CADASTRAR_MATERIA")
@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/serieColegio/*").hasRole("COLEGIO")
 				.antMatchers("/relatorios").hasRole("COLEGIO")
 				.antMatchers("/relatorios/*").hasRole("COLEGIO")
+				.antMatchers("/relatorios/pedido/*").hasRole("COLEGIO")
 				.antMatchers("/serieColegio").hasRole("COLEGIO")
 				.antMatchers("/colegios/*").hasRole("COLEGIO")
 				.antMatchers("/colegios").hasRole("COLEGIO")		

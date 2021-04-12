@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cadastroAtivos.jrxml" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="77f40cc9-ee6e-4e93-b277-c332247e9b62">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[c2VyaWVfY29sZWdpbyAsNTExLDIxMixiYWM2ODZjYy0wNjZiLTQwNDUtYjQ0Ni0xZmQ1ZDRmOGQ0
+NWU7a2l0X2FsaW1lbnRhY2FvICwyMjUsMTUsYjgwNWYzZTQtNjFiYy00ZDc2LThhNjgtM2UyNWQz
+Y2I1NjNlO3BlZGlkb19pdGVtICwxNSwxNTksOTZlYzQ5MTItY2U0NS00NDE2LThlYjItYzhmMzUx
+ZTZlYmQ1O2NvbGVnaW8gLDM4OSwxMTgsMTZjNzE1YTctMDg3Mi00YmQ2LWIzNzItYTJiYWEzNTZj
+OTc0Ow==]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="educarius"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="475"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="510"/>
+	<parameter name="ESCOLA" class="java.lang.Long"/>
+	<parameter name="SERIE" class="java.lang.Long"/>
+	<parameter name="TURMA" class="java.lang.String"/>
+	<parameter name="TURNO" class="java.lang.String"/>
+	<parameter name="IMAGEM_DIRETORIO" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT kit_alimentacao.nome_aluno,
+	kit_alimentacao.nome_responsavel,
+	kit_alimentacao.ativo,
+	kit_alimentacao.cpf,
+	kit_alimentacao.turma,
+	kit_alimentacao.turno,
+	colegio.nome,
+	serie_colegio.nome
+FROM kit_alimentacao	
+	INNER JOIN colegio ON 
+	 kit_alimentacao.colegio = colegio.codigo 
+	INNER JOIN serie_colegio ON 
+	 kit_alimentacao.serie_colegio = serie_colegio.codigo 
+	 AND ( 
+	 $P{ESCOLA} IS NULL  
+	 OR colegio.codigo = $P{ESCOLA}) 
+	 AND ( 
+	 $P{SERIE} IS NULL  
+	 OR serie_colegio.codigo = $P{SERIE}) 
+	 AND ( 
+	 $P{TURMA} IS NULL  
+	 OR kit_alimentacao.turma LIKE $P{TURMA}) 
+	 AND ( 
+	 $P{TURNO} IS NULL  
+	 OR kit_alimentacao.turno LIKE $P{TURNO}) 
+	 AND kit_alimentacao.ativo = 'true']]>
+	</queryString>
+	<field name="nome_aluno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome_aluno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="kit_alimentacao"/>
+	</field>
+	<field name="nome_responsavel" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome_responsavel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="kit_alimentacao"/>
+	</field>
+	<field name="ativo" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="ativo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="kit_alimentacao"/>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cpf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="kit_alimentacao"/>
+	</field>
+	<field name="turma" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="turma"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="kit_alimentacao"/>
+	</field>
+	<field name="turno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="turno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="kit_alimentacao"/>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colegio"/>
+	</field>
+	<field name="COLUMN_8" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="serie_colegio"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="119" splitType="Stretch">
+			<staticText>
+				<reportElement x="610" y="50" width="124" height="31" uuid="44585177-1a7e-4eb3-b528-0ab93265283c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c73aa103-f707-457a-b617-82acd60d79d5"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="741" y="81" width="60" height="31" uuid="4997561d-9107-4862-8844-7d144c7f7fdd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c73aa103-f707-457a-b617-82acd60d79d5"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="741" y="50" width="60" height="31" uuid="7483dd06-73b8-43e6-899e-c7d72d4d7e6d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0e8d8c26-38c9-4141-abd9-54ff2db3bdfe"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turno:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="610" y="80" width="124" height="31" uuid="ca1a15b9-a943-4d78-b3a0-48fd3364a819">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0e8d8c26-38c9-4141-abd9-54ff2db3bdfe"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="147" y="50" width="333" height="32" uuid="e2ddc60e-1771-46c4-b660-d52e49e986ad">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7100bb09-7d81-431a-8b0b-e9c718b27fee"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Escola/CMEI:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="147" y="79" width="333" height="32" uuid="f2a2ac54-1dae-4812-842c-866df88c8f4b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7100bb09-7d81-431a-8b0b-e9c718b27fee"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="480" y="50" width="120" height="31" uuid="daedff8a-1a00-4036-979d-f31d4154bff1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5828113-98cd-42ef-9597-f1a6f0f0da1b"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Série:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="480" y="80" width="120" height="31" uuid="2cefc999-7aee-404c-8474-9376e8b8cb51">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5828113-98cd-42ef-9597-f1a6f0f0da1b"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLUMN_8}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="99" height="98" uuid="f14bbcdb-8e29-4c83-a112-cac9eedd6f3f"/>
+				<imageExpression><![CDATA[$P{IMAGEM_DIRETORIO}+"imagens/logoPrefeitura.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="95" width="100" height="16" uuid="365eb156-7821-41e8-be0e-f8defeca62b6"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Secretatia de Educação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="99" y="0" width="702" height="50" uuid="f91f8b33-e803-4c22-922f-284b16866efe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Cadastros Ativos do Kit de Alimentação Escolar]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="3" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="40" y="0" width="320" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="29158ffa-7067-4933-9808-871e5abb7250">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ee5fd96-53d6-4339-9f35-03fe450f0434"/>
+				</reportElement>
+				<box padding="5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Aluno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="360" y="0" width="441" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="20b8f000-a68f-4d30-bffd-790649463b5e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d623ec0f-fa15-497a-a531-6fc4af063940"/>
+				</reportElement>
+				<box padding="5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Responsável]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="0" width="40" height="30" backcolor="#000000" uuid="f1069a25-aae7-49d2-8d80-4329c0f3835f"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="0" width="320" height="30" uuid="8187b1d6-f6e2-40c2-a31c-456e07502af0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ee5fd96-53d6-4339-9f35-03fe450f0434"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="5">
+					<pen lineColor="#D6D6D6"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_aluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="0" width="441" height="30" uuid="f6e335be-ea43-4137-abd0-7f1e31257f9e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d623ec0f-fa15-497a-a531-6fc4af063940"/>
+				</reportElement>
+				<box padding="5">
+					<pen lineColor="#D6D6D6"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_responsavel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="40" height="30" uuid="de9d6523-3735-402d-9b8a-730104868e6d"/>
+				<box>
+					<pen lineColor="#D6D6D6"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#D6D6D6"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="10" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement x="744" y="25" width="19" height="18" uuid="8eb7f59b-c709-4661-b7b0-3d70264ea69d"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="703" y="25" width="40" height="18" uuid="b2e014e1-69ae-4fb8-a449-9216d67a88e7"/>
+				<text><![CDATA[Pagina:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="762" y="25" width="20" height="18" uuid="7d220c14-e20d-481e-a934-60e0bfdba9f8"/>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="782" y="25" width="20" height="18" uuid="f983bedc-4603-4c25-90cd-ad31b7ccc7ac"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="10" splitType="Stretch"/>
+	</summary>
+	<noData>
+		<band height="55">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="55" uuid="ab6c4385-2cf2-4eed-a979-aed700e21838"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nenhum registro foi encontrado, referente aos dados infomados!]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

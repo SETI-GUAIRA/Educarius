@@ -2,7 +2,9 @@ package br.gov.pr.guaira.educacao.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
-
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,13 +27,20 @@ import com.lowagie.text.pdf.codec.Base64.InputStream;
 import com.lowagie.text.pdf.codec.Base64.OutputStream;
 
 import br.gov.pr.guaira.educacao.filter.KitAlimentacaoFilter;
+import br.gov.pr.guaira.educacao.model.Colegio;
 import br.gov.pr.guaira.educacao.model.KitAlimentacao;
+import br.gov.pr.guaira.educacao.model.Pedido;
+import br.gov.pr.guaira.educacao.model.SerieColegio;
 import br.gov.pr.guaira.educacao.model.Turma;
 import br.gov.pr.guaira.educacao.model.Turno;
 import br.gov.pr.guaira.educacao.repository.Colegios;
+import br.gov.pr.guaira.educacao.repository.Pedidos;
 import br.gov.pr.guaira.educacao.repository.SeriesColegios;
 import br.gov.pr.guaira.educacao.security.UsuarioSistema;
 import br.gov.pr.guaira.educacao.service.JasperService;
+import br.gov.pr.guaira.educacao.service.PedidoService;
+
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperReport;
@@ -49,6 +59,12 @@ private JasperService service;
 @Autowired
 private Colegios colegios;	
 
+@Autowired
+private Pedidos pedidos;	
+
+@Autowired
+private PedidoService pedidoService;	
+
 
 @Autowired
 private SeriesColegios seriesColegios;		
@@ -56,11 +72,16 @@ private SeriesColegios seriesColegios;
 @Autowired
 private Connection connection;
 
-  @GetMapping
-  public ModelAndView relatorios(KitAlimentacaoFilter kitAlimentacaoFilter) {
-    ModelAndView mv = new ModelAndView("relatorio/Relatorio");
-    mv.addObject("colegios", this.colegios.findAll());	
-    mv.addObject("seriesColegios", this.seriesColegios.findAll());
+  @GetMapping("/recibo")
+  public ModelAndView recibo(KitAlimentacaoFilter kitAlimentacaoFilter) {
+    ModelAndView mv = new ModelAndView("relatorio/Recibo");  
+    UsuarioSistema usuario = (UsuarioSistema)SecurityContextHolder.getContext().getAuthentication().getPrincipal();	
+	kitAlimentacaoFilter.setColegio(usuario.getUsuario().getColegio());	
+    return mv;
+  }
+  @GetMapping("/todosAtivo")
+  public ModelAndView todosAtivo(KitAlimentacaoFilter kitAlimentacaoFilter) {
+    ModelAndView mv = new ModelAndView("relatorio/TodosAtivo"); 
     UsuarioSistema usuario = (UsuarioSistema)SecurityContextHolder.getContext().getAuthentication().getPrincipal();	
 	kitAlimentacaoFilter.setColegio(usuario.getUsuario().getColegio());	
     return mv;
@@ -70,49 +91,15 @@ private Connection connection;
   public String myConn(Model model) {
   	model.addAttribute("conn", connection != null ? "Conexão ok!" : "Ops... sem conexão");
       return "relatorio/Relatorio";
-  }
-  
-//	@GetMapping("/todos")
-//	public void exportar_Todos_PDF(
-//			@RequestParam("acao") String acao,
-//			HttpServletResponse response) throws IOException {
-//		byte[] bytes = service.exportar_Todos_PDF();
-//		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-//		if (acao.equals("V")) {
-//			response.setHeader("Content-disposition", "inline;filename=todas.pdf");
-//		} else {
-//			response.setHeader("Content-disposition", "attachment;filename=todas.pdf");			
-//		}
-//		response.getOutputStream().write(bytes);
-//	}
+  }  
 
 
-//	@GetMapping("/colegio")
-//	public void exibir_Colegio(
-//			@RequestParam(name = "colegio", required = false) Integer colegio, 
-//			@RequestParam(name = "serieColegio", required = false) Integer serie, 
-//			@RequestParam(name = "turma", required = false) String turma, 
-//			@RequestParam(name = "turno", required = false) String turno,	       
-//	        HttpServletResponse response)
-//			throws Exception {
-//    
-//		
-//		service.addParams("ESCOLA", colegio);
-//		service.addParams("SERIE", serie);
-//		service.addParams("TURMA", turma.isEmpty() ? null : turma);
-//		service.addParams("TURNO", turno.isEmpty() ? null : turno);
-//
-//		byte[] bytes = service.recibo_Kit_Alimentacao_PDF();
-//		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-//		response.setHeader("Content-disposition", "inline;filename=colegio.pdf");
-//		response.getOutputStream().write(bytes);	
-//	}
 	
 	@PostMapping("/recibo")
-	public void exibir_Colegio(KitAlimentacaoFilter kitAlimentacaoFilter,	       
+	public void exibir_Recibo(KitAlimentacaoFilter kitAlimentacaoFilter,	       
 	        HttpServletResponse response)
 			throws Exception {   
-		
+		service.addParams("PEDIDO", kitAlimentacaoFilter.getPedido().getCodigo());
 		service.addParams("ESCOLA", kitAlimentacaoFilter.getColegio().getCodigo());
 		service.addParams("SERIE", kitAlimentacaoFilter.getSerieColegio().getCodigo());
 		service.addParams("TURMA", kitAlimentacaoFilter.getTurma());
@@ -123,8 +110,44 @@ private Connection connection;
 		response.setHeader("Content-disposition", "inline;filename=colegio.pdf");
 		response.getOutputStream().write(bytes);	
 	}
+	@PostMapping("/todosAtivos")
+	public void todosAtivos(KitAlimentacaoFilter kitAlimentacaoFilter,	       
+	        HttpServletResponse response)
+			throws Exception {   
+		
+		service.addParams("ESCOLA", kitAlimentacaoFilter.getColegio().getCodigo());
+		service.addParams("SERIE", kitAlimentacaoFilter.getSerieColegio().getCodigo());
+		service.addParams("TURMA", kitAlimentacaoFilter.getTurma());
+		service.addParams("TURNO", kitAlimentacaoFilter.getTurno());
+
+		byte[] bytes = service.todosAtivos_Kit_Alimentacao_PDF();
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);		
+		response.setHeader("Content-disposition", "inline;filename=colegio.pdf");
+		response.getOutputStream().write(bytes);	
+	}
+	
+	@GetMapping("/todosAtivoPedido")
+	public void todosAtivoPedido(     
+	        HttpServletResponse response)
+			throws Exception {   
+		byte[] bytes = service.pedido_Todos_Ativos_PDF();
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		response.setHeader("Content-disposition", "inline;filename=Pedido.pdf");
+		response.getOutputStream().write(bytes);
+	}
 	
 	
+	@GetMapping("/pedido/{data}")
+	public void exibirCarteirinhaIndividual(
+			@PathVariable("data") Date data,
+			HttpServletResponse response) throws IOException, JRException, SQLException {
+		service.addParams("Data_Pedido", data);
+
+		byte[] bytes = service.pedido_Kit_Alimentacao_PDF();
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		response.setHeader("Content-disposition", "inline;filename=Pedido.pdf");
+		response.getOutputStream().write(bytes);
+	}
 
 //	@GetMapping("/individual/{pescador}")
 //	public void exibirCarteirinhaIndividual(
@@ -146,5 +169,17 @@ private Connection connection;
 	  public Turma[] getNomeTurmas() {
 	    return Turma.values();
 	  }
+	@ModelAttribute("pedidos")
+	  public List<Pedido> listaPedidos() {
+	    return pedidos.findAllByOrderByCodigoDesc();
+	 }
+	@ModelAttribute("colegios")
+	  public List<Colegio> listaColegios() {
+	    return colegios.findAll();
+	 }
 	
+	@ModelAttribute("seriesColegios")
+	  public List<SerieColegio> listaSeriesColegios() {
+	    return seriesColegios.findAll();
+	 }
 }

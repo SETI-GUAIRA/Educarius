@@ -14,9 +14,9 @@ import br.gov.pr.guaira.educacao.repository.helper.KitAlimentacoesQueries;
 
 public interface KitAlimentacoes extends JpaRepository<KitAlimentacao, Long>, KitAlimentacoesQueries{
 
-	Optional<KitAlimentacao> findByCpf(String cpf);
+	//Optional<KitAlimentacao> findByCpf(String cpf);
+	public List<KitAlimentacao> findByCodigoIn(Long[] codigos);
 
-	public List<Usuario> findByCodigoIn(Long[] codigos);
-	
+	public Optional<KitAlimentacao> findByNomeAluno(String nomeAluno);
 
 }

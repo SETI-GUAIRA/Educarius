@@ -56,9 +56,21 @@ public class JasperService {
 //	
 //	}
 	
-	public byte[] recibo_Kit_Alimentacao_PDF() throws Exception {
-		
+	public byte[] recibo_Kit_Alimentacao_PDF() throws Exception {		
 		InputStream inputStream = this.getClass().getResourceAsStream("/jasper/ReciboKitAlimentacao.jasper");
+		return geraRelatorio(params, inputStream, connection);
+	}
+	public byte[] todosAtivos_Kit_Alimentacao_PDF() throws Exception{
+		InputStream inputStream = this.getClass().getResourceAsStream("/jasper/cadastroAtivos.jasper");
+		return geraRelatorio(params, inputStream, connection);
+	}
+	public byte[] pedido_Todos_Ativos_PDF() throws Exception {
+		InputStream inputStream = this.getClass().getResourceAsStream("/jasper/TodosAtivosColegios.jasper");
+		return geraRelatorio(params, inputStream, connection);
+	}
+	
+	public byte[] pedido_Kit_Alimentacao_PDF() throws JRException, SQLException {
+		InputStream inputStream = this.getClass().getResourceAsStream("/jasper/Pedido.jasper");
 		return geraRelatorio(params, inputStream, connection);
 	}
 	
@@ -71,6 +83,9 @@ public class JasperService {
 		//	con.close();
 		}
 	}
+	
+
+
 	
 	
 }

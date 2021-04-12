@@ -41,7 +41,7 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-xs-10">
-							<h1>Recibo de entrega do Kit de Alimentação Escolar</h1>
+							<h1>Gerar Recibo de entrega do Kit de Alimentação Escolar</h1>
 						</div>						
 					</div>
 				</div>
@@ -54,15 +54,29 @@
 		                <!--  	<form role="form" class="form" th:object="${kitAlimentacaoFilter}" th:action="@{/relatorios/colegio}" method="get" target="_blank">-->
 		                	<form role="form" class="form" th:object="${kitAlimentacaoFilter}" th:action="@{/relatorios/recibo}" method="POST" target="_blank">
 		                	<div class="card-body">
-		               			<div class="row">									    
-
-							   <div class="bw-field-action hidden">
-									<select id="colegio" class="form-control" th:field="*{colegio}" >
-										<option value="" >Selecione o colegio</option>
-										<option th:each="colegio : ${colegios}"
-											th:value="${colegio.codigo}" th:text="${colegio.nome}"></option>
-									</select>							
+		                		<div class="row">	
+		                		
+			                		<div class="col-sm-4 form-group">
+										<label for="pedido" class="control-label">Data Pedido</label>
+												<div class="bw-field-action">
+													<select id="pedido" class="form-control" th:field="*{pedido}" required>
+														<option value="">Selecione</option>
+														<option th:each="pedido : ${pedidos}" th:value="${pedido.codigo}"
+															th:text="${#temporals.format(pedido.dataPedido, 'dd/MM/yyyy')}"></option>
+													</select>
+											</div>										
+									</div>	
+									</div>
+										               											    
+                               <!-- COLEGIO SELECIONA AUTOMATICO REFENTENTE AO LOGIN DO USUARIO -->
+							       <div class="bw-field-action hidden">
+										<select id="colegio" class="form-control" th:field="*{colegio}" >
+											<option value="" >Selecione o colegio</option>
+											<option th:each="colegio : ${colegios}"
+												th:value="${colegio.codigo}" th:text="${colegio.nome}"></option>
+										</select>							
 					                </div>
+					            <!--////////////////////////////////////////////////////////////-->    
 									<div class="row">		
 									<div class="col-sm-4  form-group">
 											<label for="serieColegio" class="control-label">Série </label>
@@ -100,7 +114,7 @@
 							</form>       
 			             </div>	             
 			          </div>
-			      </div>
+			      
 		      </section>
       
 	</section>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+	
+	
+<head>
+<title>Pesquisa Kit</title>
+</head>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1 th:if="${kitAlimentacao.nova}">Cadastro - Kit Alimentção</h1>
+					<h1 th:unless="${kitAlimentacao.nova}" th:text="|Edição - ${kitAlimentacao.nomeAluno}|"></h1>
+				</div>
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn btn-default" th:href="@{/kitAlimentacao}"> <i
+							class="glyphicon  glyphicon-plus-sign"></i> <span
+							class="hidden-xs  hidden-sm">pesquisar</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	 
+	<div class="container-fluid">
+	
+		<form method="POST" th:object="${kitAlimentacao}"
+			class="form-vertical  js-form-loading"
+			th:action="${kitAlimentacao.nova} ? @{/kitAlimentacao/editar} : @{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})}">
+			<input type="hidden" th:field="*{codigo}" />
+			<div layout:insert="fragments/Mensagem"></div>
+	        <div layout:insert="fragments/MensagemErro"></div> 
+	        
+			<div class="nomeForm">DADOS ALUNO</div>				
+			<div class="row  bw-required">
+				<div class="col-sm-12  form-group"plano:classforerror="nomeAluno">
+						<label for="nomeAluno" class="control-label">Nome *
+							</label> <input id="nomeAluno" type="text" class="form-control"
+							th:field="*{nomeAluno}" />
+				</div>
+				
+				
+				<div class="col-sm-6 form-group" plano:classforerror="colegio" hidden>
+					<label for="colegio" class="control-label">Colégio *</label> 
+					<div class="bw-field-action">
+						<select id="colegio" class="form-control" th:field="*{colegio}" >
+							<option value="">Selecione um colégio</option>
+							<option th:each="colegio : ${colegios}" 
+								th:value="${colegio.codigo}" th:text="${colegio.nome}"></option>
+						</select>
+					</div>
+				</div>	
+				
+						
+				<div class="col-sm-4  form-group" plano:classforerror="serieColegio">
+					<label for="serieColegio" class="control-label">Série *</label>
+					<div class="bw-field-action">
+						<select id="serieColegio" class="form-control" th:field="*{serieColegio}">
+							<option value="">Selecione</option>
+							<option th:each="serieColegio : ${seriesColegios}" th:value="${serieColegio.codigo}"
+								th:text="${serieColegio.nome}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+						<div class="form-group" plano:classforerror="turno">
+						<label for="turno" class="control-label">Turno *</label>
+							<select class="form-control" th:field="*{turno}">
+								<option value="" readonly>Selecione</option>
+								<option th:each="turnos : ${turno}" th:value="${turnos}"
+									th:text="${turnos.descricao}">Turno</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group" plano:classforerror="turma">
+						<label for="turma" class="control-label">Turma *</label>
+							<select class="form-control" th:field="*{turma}">
+								<option value="" readonly>Selecione</option>
+								<option th:each="turmas : ${turma}" th:value="${turmas}"
+									th:text="${turmas.descricao}">Turma</option>
+							</select>
+						</div>
+					</div>				
+			</div>
+			<div class="nomeForm">DADOS RESPONSAVEL</div>			
+			<div class="row  bw-required">				
+				<div class="col-sm-12  form-group" plano:classforerror="nome_responsavel">
+					<label for="nome_responsavel" class="control-label">Nome *</label> 
+					<input id="nome_responsavel" type="text" class="form-control" th:field="*{nome_responsavel}" />
+				</div>
+			</div>	
+			<div class="row  bw-required">				
+<!-- 				<div class="col-sm-4  form-group" plano:classforerror="cpf"> -->
+<!-- 					<label for="cpf" class="control-label">CPF *</label>  -->
+<!-- 					<input id="cpf" type="text" class="form-control js-documento-cpf" th:field="*{cpf}" /> -->
+<!-- 				</div> -->
+				
+				
+				
+				
+				
+				<div class="col-lg-2  col-sm-2  form-group  bw-required" >
+						<label for="origem" class="control-label">Tipo Documento</label>
+
+						<div>
+							<th:block th:each="tipoPessoa : ${tiposPessoa}">
+								<div class="radio  radio-inline" >
+									<input type="radio" th:id="|id_${tipoPessoa}|"
+										class="js-radio-tipo-pessoa" th:field="*{tipoPessoa}"
+										th:value="${tipoPessoa}"
+										data:documento="${tipoPessoa.documento}"
+										data:mascara="${tipoPessoa.mascara}"> <label
+										class="control-label" th:for="|id_${tipoPessoa}|"
+										th:text="${tipoPessoa.descricao}" >Física</label>
+								</div>
+							</th:block>
+						</div>
+					</div>
+				    <div class="col-sm-4  form-group" plano:classforerror="cpfOuCnpj">
+						<label for="cpfOuCnpj">CPF/RG/IC</label> <input id="cpfOuCnpj"
+							type="text" class="form-control" th:field="*{cpfOuCnpj}" disabled/>
+					</div>
+					
+					
+					
+<!-- 				<div class="col-sm-4  form-group" -->
+<!-- 					plano:classforerror="rg"> -->
+<!-- 					<label for="rg" class="control-label">RG</label>  -->
+<!-- 					<input id="rg" type="text" class="form-control" th:field="*{rg}" /> -->
+<!-- 				</div> -->
+				<div class="col-sm-4  form-group">
+					<label for="telefone_contato" class="control-label">Telefone</label> 
+					<input id="telefone_contato" type="text" class="form-control js-cell-phone" th:field="*{telefone_contato}" />
+				</div>	
+				<div class="col-sm-2  form-group">
+				<label class="control-label">Status</label>
+						<div>
+							<input type="checkbox"  class="js-status" data-size="small" data-off-color="danger"
+							data-on-text="Ativo" data-off-text="Inativo" th:field="*{ativo}"/>
+						</div>
+			   </div>						
+			</div>	
+            <div class="separador"></div>
+			<div class="form-group text-center">
+				<button class="btn  btn-primary  js-btn-submit  col-sm-12" type="submit">Salvar</button>
+			</div>
+		</form>
+		
+	</div>
+</section>
+<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+<!-- 		<script th:src="@{/javascripts/cliente.mascara-cpf-cnpj.js}"></script> -->
+		<script>
+			$('.js-status').bootstrapSwitch();
+		</script>
+	</th:block>
+	
+</html>

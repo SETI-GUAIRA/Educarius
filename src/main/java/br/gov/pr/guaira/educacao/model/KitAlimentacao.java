@@ -22,8 +22,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
+import br.gov.pr.guaira.educacao.model.validation.group.CnpjGroup;
+import br.gov.pr.guaira.educacao.model.validation.group.CpfGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 @Data
@@ -36,23 +39,38 @@ public class KitAlimentacao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;	
+	
 	@NotBlank(message="Informe o nome do aluno")
-	@Column(nullable = false)
-	private String nome_aluno;
+	@Column(nullable = false)	
+	private String nomeAluno;
+	
 	@NotBlank(message="Informe o nome do responsável")	
 	@Column(nullable = false)
 	private String nome_responsavel;
-	@NotBlank(message="Informe o CPF")	
-	@CPF(message = "Número do CPF está inválido!")	
-	@Column(nullable = false)
-	private String cpf;	
-	private String rg;	
+	
+//	@NotBlank(message="Informe o CPF")	
+//	@CPF(message = "Número do CPF está inválido!")	
+//	@Column(nullable = false)
+//	private String cpf;	
+//	private String rg;	
 	private String telefone_contato;
 	@Column(nullable = false)
-	private LocalDate data_cadastro;	
+	private LocalDate data_cadastro;
+	
+//	TESTE CPF BRA PY
+	@Column(name = "tipo_pessoa")	
+	private TipoPessoa tipoPessoa;
+	@NotBlank(message = "CPF/RG/IC é obrigatório!")
+	@CNPJ(groups = CnpjGroup.class)
+	@CPF(groups = CpfGroup.class)
+	@Column(name = "cpf")
+	private String cpfOuCnpj;
+	
+		
 	
 	@NotNull(message = "Informe o colegio")
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -81,36 +99,16 @@ public class KitAlimentacao implements Serializable{
 	@PrePersist
 	@PreUpdate
 	private void toUpperCase() {
-		this.nome_aluno = this.nome_aluno.toUpperCase();
+		this.nomeAluno = this.nomeAluno.toUpperCase();
+		this.nome_responsavel = this.nome_responsavel.toUpperCase();
 	}
+	
+	
 	
 	public boolean isNova() {
 		return this.codigo == null;
 	}
 
-	
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-//		return result;
-//	}
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		KitAlimentacao other = (KitAlimentacao) obj;
-//		if (codigo == null) {
-//			if (other.codigo != null)
-//				return false;
-//		} else if (!codigo.equals(other.codigo))
-//			return false;
-//		return true;
-//	}
+
 	
 }

@@ -1,3 +1,7 @@
+.textoTabela{
+	color:#2C3E50;
+	font-size:17px;
+}
 .aw-layout-page {
   position: relative;
   overflow-x: hidden;
@@ -620,7 +624,7 @@ body {
 }
 .page-header {
   padding-bottom: 0px;
-  background-color: #fafbfd;
+  background-color: #f7f9f8; 
 }
 .page-header h1 {
   display: flex;

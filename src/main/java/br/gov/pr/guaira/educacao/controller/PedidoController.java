@@ -1,11 +1,13 @@
 package br.gov.pr.guaira.educacao.controller;
 
+
 import java.io.Serializable;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -19,75 +21,76 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import br.gov.pr.guaira.educacao.controller.page.PageWrapper;
 import br.gov.pr.guaira.educacao.exception.ColegioJaCadastradaException;
 import br.gov.pr.guaira.educacao.exception.ImpossivelExcluirEntidadeException;
-import br.gov.pr.guaira.educacao.filter.ColegioFilter;
+import br.gov.pr.guaira.educacao.exception.PedidoJaCadastradoException;
 import br.gov.pr.guaira.educacao.filter.KitAlimentacaoFilter;
+import br.gov.pr.guaira.educacao.filter.PedidoFilter;
 import br.gov.pr.guaira.educacao.model.Colegio;
 import br.gov.pr.guaira.educacao.model.KitAlimentacao;
-import br.gov.pr.guaira.educacao.repository.Colegios;
+import br.gov.pr.guaira.educacao.model.Pedido;
+import br.gov.pr.guaira.educacao.model.PedidoItemId;
 import br.gov.pr.guaira.educacao.repository.KitAlimentacoes;
-import br.gov.pr.guaira.educacao.service.ColegioService;
+import br.gov.pr.guaira.educacao.repository.Pedidos;
+import br.gov.pr.guaira.educacao.repository.Pedidos_Item;
 import br.gov.pr.guaira.educacao.service.KitAlimentacaoService;
+import br.gov.pr.guaira.educacao.service.PedidoService;
 
 
 @Controller
 @RequestMapping("/pedidos")
 public class PedidoController implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
+	
 	@Autowired
-	private KitAlimentacaoService kitAlimentacaoService;
+	private PedidoService pedidoService;
 	@Autowired
 	private KitAlimentacoes kitAlimentacoes;
+	@Autowired
+	private Pedidos pedidos;
+	
+	private PedidoItemId pedidoItemId;
+	@Autowired
+	private Pedidos_Item pedidos_Intem;
 
 	@RequestMapping("/novo")
-	public ModelAndView nova(KitAlimentacao kitAlimentacao) {
+	public ModelAndView nova(Pedido pedido) {
 		ModelAndView mv = new ModelAndView("pedido/PedidoKitAlimentacao");		
 		return mv;
-	}
-	
-	@PostMapping(value = {"/nova", "{\\d+}"})
-	public ModelAndView salvar(@Valid KitAlimentacao kitAlimentacao, BindingResult result, RedirectAttributes attributes) {
+	}		
+	@GetMapping("/gravaPedido")
+	public ResponseEntity<String> gravarPedido(Pedido pedido,BindingResult result) {	
+		pedido.setKitsAlimentacao(kitAlimentacoes.KitAtivo());
 		
-		if(result.hasErrors()) {
-			return nova(kitAlimentacao);
-		}
 		try {
-			this.kitAlimentacaoService.salvar(kitAlimentacao);
-		}catch (ColegioJaCadastradaException e) {
-			result.rejectValue("nome", e.getMessage(), e.getMessage());
-			return nova(kitAlimentacao);
-		}
-		attributes.addFlashAttribute("mensagem", "Colegio cadastrada com sucesso!");
-		return new ModelAndView("redirect:/colegios/nova");
-	}
-	
-	@GetMapping("/{codigo}")
-	public ModelAndView editar(@PathVariable("codigo") Long codigo) {
-		KitAlimentacao kitAlimentacao = this.kitAlimentacoes.findById(codigo).get();
-		ModelAndView mv = nova(kitAlimentacao);
-		mv.addObject(kitAlimentacao);
-		return mv;
-	}
-	
+			pedidoService.salvar(pedido);
+		}catch (PedidoJaCadastradoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());	
+		}		
+		return ResponseEntity.ok().build();		
+	}	
 	@GetMapping
-	public ModelAndView pesquisar(KitAlimentacaoFilter kitAlimentacaoFilter, BindingResult result, @PageableDefault(size=10) Pageable pageable, 
+	public ModelAndView pesquisar(PedidoFilter pedidoFilter, BindingResult result, @PageableDefault(size=10) Pageable pageable, 
 			 HttpServletRequest httpServletRequest) {
-		ModelAndView mv = new ModelAndView("colegio/PesquisaColegio");
-		PageWrapper<KitAlimentacao> paginaWrapper = new PageWrapper<>(kitAlimentacoes.filtrar(kitAlimentacaoFilter, pageable), httpServletRequest);
-		mv.addObject("pagina", paginaWrapper);
+		ModelAndView mv = new ModelAndView("pedido/PedidoKitAlimentacao");
 		
+				
+		
+		PageWrapper<Pedido> paginaWrapper = new PageWrapper<>(pedidos.filtrar(pedidoFilter, pageable), httpServletRequest);
+		mv.addObject("proximoMEs",pedidos_Intem.GetMes());
+		mv.addObject("totalPedidos",this.pedidos_Intem.totalPedidoMes(null));
+		//mv.addObject("totalPedidos",pedidos_Intem.totalPedidoMes(pedidoFilter.getDataPedido()));
+		//mv.addObject("totalPedidos",this.pedidos_Intem.findByidIgnoreCase(pedido));
+		mv.addObject("pagina", paginaWrapper);		
 		return mv;
 	}
-	
 	@DeleteMapping("/{codigo}")
-	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") KitAlimentacao kitAlimentacao){
+	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") Pedido pedido){
 		
 		try {
-			this.kitAlimentacaoService.excluir(kitAlimentacao);
+			this.pedidoService.excluir(pedido);
 		}catch (ImpossivelExcluirEntidadeException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}

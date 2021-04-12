@@ -2,7 +2,7 @@ package br.gov.pr.guaira.educacao.model;
 
 public enum Turno {
 
-	TARDE("Tarde"), MANHA("Manhã"), NOITE("Noite"), INTEGRAL("Integral");
+	 MANHA("MANHÃ"),TARDE("TARDE"), NOITE("NOITE"), INTEGRAL("INTEGRAL");
 	
 	private Turno(String descricao) {
 		this.descricao = descricao;

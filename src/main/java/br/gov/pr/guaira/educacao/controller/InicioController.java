@@ -114,12 +114,68 @@ public class InicioController {
 		
 		return mv;
 	}
-	@GetMapping("/educacaoespecial")
-	public ModelAndView educacaoEspecial() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/educacao_especial");
+//	EDUCAÇÁO ESPECIAL------------------------------
+	@GetMapping("/educacaoespecial/eventos")
+	public ModelAndView educacaoEspecialEvento() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/EventosDisponiveis");
 		
 		return mv;
 	}
+
+	@GetMapping("/educacaoespecial/eventos01")
+	public ModelAndView educacaoEspecialEvento01() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/Evento01");		
+		return mv;
+	}
+	@GetMapping("/educacaoespecial/eventos02")
+	public ModelAndView educacaoEspecialEvento02() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/Evento02");
+		
+		return mv;
+	}
+	@GetMapping("/educacaoespecial/eventos03")
+	public ModelAndView educacaoEspecialEvento03() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/Evento03");
+		
+		return mv;
+	}
+	@GetMapping("/educacaoespecial/eventos04")
+	public ModelAndView educacaoEspecialEvento04() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/Evento04");
+		
+		return mv;
+	}
+	@GetMapping("/educacaoespecial/eventos05")
+	public ModelAndView educacaoEspecialEvento05() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/Evento05");
+		
+		return mv;
+	}
+	@GetMapping("/educacaoespecial/eventos06")
+	public ModelAndView educacaoEspecialEvento06() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/Evento06");
+		
+		return mv;
+	}
+	@GetMapping("/educacaoespecial/eventos07")
+	public ModelAndView educacaoEspecialEvento07() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/Evento07");
+		
+		return mv;
+	}
+	@GetMapping("/educacaoespecial/eventos08")
+	public ModelAndView educacaoEspecialEvento08() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/Evento08");
+		
+		return mv;
+	}
+	@GetMapping("/educacaoespecial")
+	public ModelAndView educacaoEspecial() {
+		ModelAndView mv = new ModelAndView("educacaoespecial/ListaEventos");
+		
+		return mv;
+	}
+//	--------------------------------------------
 	
 	@GetMapping("/atividadesBncc")
 	public ModelAndView atividadesBncc() {

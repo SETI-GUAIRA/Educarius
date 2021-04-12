@@ -63,8 +63,6 @@ public class Usuario implements Serializable {
 	private Colegio colegio;	
 	
 	
-	
-	
 	@PreUpdate
 	private void preUpdate() {
 		this.confirmacaoSenha = senha;

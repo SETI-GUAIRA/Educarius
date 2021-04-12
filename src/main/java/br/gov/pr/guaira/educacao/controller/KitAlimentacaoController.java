@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.gov.pr.guaira.educacao.filter.KitAlimentacaoFilter;
 import br.gov.pr.guaira.educacao.model.Colegio;
 import br.gov.pr.guaira.educacao.model.KitAlimentacao;
+import br.gov.pr.guaira.educacao.model.Pedido;
 import br.gov.pr.guaira.educacao.model.Turma;
 import br.gov.pr.guaira.educacao.model.Turno;
 
@@ -40,9 +41,12 @@ import br.gov.pr.guaira.educacao.security.UsuarioSistema;
 import br.gov.pr.guaira.educacao.service.KitAlimentacaoService;
 import br.gov.pr.guaira.educacao.service.StatusKitAlimentacao;
 import br.gov.pr.guaira.educacao.service.StatusUsuario;
+import br.gov.pr.guaira.educacao.model.TipoPessoa;
 import br.gov.pr.guaira.educacao.controller.page.PageWrapper;
 import br.gov.pr.guaira.educacao.exception.CpfExistenteException;
 import br.gov.pr.guaira.educacao.exception.ImpossivelExcluirEntidadeException;
+import br.gov.pr.guaira.educacao.exception.KitAlimentacaoJaExistenteException;
+import br.gov.pr.guaira.educacao.exception.PedidoJaCadastradoException;
 
 
 
@@ -66,6 +70,7 @@ public class KitAlimentacaoController {
 	public ModelAndView nova(KitAlimentacao kitAlimentacao) {
 		ModelAndView mv = new ModelAndView("kitAlimentacao/CadastroKitAlimentacao");
 		mv.addObject("seriesColegios", this.seriesColegios.findAll());
+		mv.addObject("tiposPessoa", TipoPessoa.values());
 		mv.addObject("colegios", this.colegios.findAll());		
 		return mv;
 	}
@@ -77,9 +82,9 @@ public class KitAlimentacaoController {
 		}
 		try {
 			this.kitAlimentacaoService.salvar(kitAlimentacao);
-//		}catch (CpfExistenteException e) {
-//			result.rejectValue("cpf", e.getMessage(), e.getMessage());					
-//			return nova(kitAlimentacao);
+		}catch (KitAlimentacaoJaExistenteException e) {
+				result.rejectValue("nomeAluno", e.getMessage(), e.getMessage());					
+				return nova(kitAlimentacao);	
 		}catch (ConstraintViolationException e) {
 			String msg = "O CPF informado é inválido";
 			result.rejectValue("cpf", msg, msg);
@@ -94,6 +99,10 @@ public class KitAlimentacaoController {
 		ModelAndView mv = new ModelAndView("kitAlimentacao/EditaKitAlimentacao");
 		mv.addObject("seriesColegios", this.seriesColegios.findAll());
 		mv.addObject("colegios", this.colegios.findAll());		
+		mv.addObject("tiposPessoa", TipoPessoa.values());
+        UsuarioSistema usuario = (UsuarioSistema)SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+        kitAlimentacao.setColegio(usuario.getUsuario().getColegio());
+		
 		return mv;
 	}
 	//REFERENTE A TELA DE CADASTRO ADM
@@ -104,14 +113,15 @@ public class KitAlimentacaoController {
 		}
 		try {
 			this.kitAlimentacaoService.salvar(kitAlimentacao);
-//		}catch (CpfExistenteException e) {
-//			result.rejectValue("cpf", e.getMessage(), e.getMessage());					
-//			return nova(kitAlimentacao);
-		}catch (ConstraintViolationException e) {
-			String msg = "O CPF informado é inválido";
-			result.rejectValue("cpf", msg, msg);
+		}catch (KitAlimentacaoJaExistenteException e) {
+			result.rejectValue("nomeAluno", e.getMessage(), e.getMessage());					
 			return edita(kitAlimentacao);
-		}
+		}	
+//		}catch (ConstraintViolationException e) {
+//			String msg = "O CPF informado é inválido";
+//			result.rejectValue("cpf", msg, msg);
+//			return edita(kitAlimentacao);
+//		}
 		attributes.addFlashAttribute("mensagem", "Cadastro Editado com sucesso!");
 		return new ModelAndView("redirect:/kitAlimentacao/editar");
 	}
@@ -157,15 +167,28 @@ public class KitAlimentacaoController {
 		}
 	
 	@DeleteMapping("/{codigo}")
-	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") KitAlimentacao kitAlimentacao){
+	public ResponseEntity<String>  excluir(@PathVariable("codigo") KitAlimentacao kitAlimentacao){
 		try {
 			this.kitAlimentacaoService.excluir(kitAlimentacao);
-		}catch (ImpossivelExcluirEntidadeException e) {
-			ResponseEntity.badRequest().body(e.getMessage());
-			nova(kitAlimentacao);
+		}catch (PedidoJaCadastradoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		return ResponseEntity.ok().build();
-	}
+	}	
+	
+	
+//	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") KitAlimentacao kitAlimentacao){
+//		try {
+//			this.kitAlimentacaoService.excluir(kitAlimentacao);
+//		}catch (ImpossivelExcluirEntidadeException e) {
+//			ResponseEntity.badRequest().body(e.getMessage());			
+//			nova(kitAlimentacao);
+//		}
+//		return ResponseEntity.ok().build();
+//	}
+	
+	
+	
 	
 	@PutMapping("/status")
 	@ResponseStatus(HttpStatus.OK)

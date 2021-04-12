@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="colegios-pedido-kit" pageWidth="226" pageHeight="30" columnWidth="226" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3055096d-7eb7-48cb-8a33-fae303d2d983">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="educarius"/>
+	<parameter name="Data_Pedido" class="java.sql.Date"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT COUNT( colegio.nome)
+FROM pedido_item
+	INNER JOIN kit_alimentacao ON 
+	 pedido_item.codigo_kit_alimentacao = kit_alimentacao.codigo 
+	INNER JOIN colegio ON 
+	 kit_alimentacao.colegio = colegio.codigo 
+	INNER JOIN pedido ON 
+	 pedido_item.codigo_pedido = pedido.codigo 
+WHERE 
+	 pedido.data_pedido = $P{Data_Pedido}]]>
+	</queryString>
+	<field name="count" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="count"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="226" height="30" uuid="d81f9872-a578-44e7-be7a-78b2bf3a69b6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

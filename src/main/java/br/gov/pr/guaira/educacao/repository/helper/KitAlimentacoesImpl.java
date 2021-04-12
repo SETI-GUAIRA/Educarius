@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.gov.pr.guaira.educacao.filter.KitAlimentacaoFilter;
 import br.gov.pr.guaira.educacao.model.KitAlimentacao;
+import br.gov.pr.guaira.educacao.model.Usuario;
 import br.gov.pr.guaira.educacao.repository.paginacao.PaginacaoUtil;
 
 public class KitAlimentacoesImpl implements KitAlimentacoesQueries{
@@ -37,7 +38,8 @@ public class KitAlimentacoesImpl implements KitAlimentacoesQueries{
 		CriteriaQuery<KitAlimentacao> query = builder.createQuery(KitAlimentacao.class);
 		Root<KitAlimentacao> kitAlimentacaoEntity = query.from(KitAlimentacao.class);
 		kitAlimentacaoEntity.fetch("colegio", JoinType.INNER);
-		kitAlimentacaoEntity.fetch("serieColegio", JoinType.INNER);		
+		kitAlimentacaoEntity.fetch("serieColegio", JoinType.INNER);	
+		
 	
 		Predicate[] filtros = adicionarFiltro(filtro, kitAlimentacaoEntity);
 
@@ -58,7 +60,7 @@ public class KitAlimentacoesImpl implements KitAlimentacoesQueries{
 
 		kitAlimentacaoEntity.fetch("colegio", JoinType.INNER);
 		kitAlimentacaoEntity.fetch("serieColegio", JoinType.INNER);		
-	
+		
 		
 		KitAlimentacaoFilter kitAlimentacaoFilter = new KitAlimentacaoFilter();
 		kitAlimentacaoFilter.setColegio(kitAlimentacao.getColegio());
@@ -92,7 +94,7 @@ public class KitAlimentacoesImpl implements KitAlimentacoesQueries{
 			
 			if (filtro.getColegio() != null){
 				predicateList.add(builder.equal(kitAlimentacaoEntity.get("colegio"), filtro.getColegio()));
-			}
+			}			
 			if (filtro.getSerieColegio() != null){
 				predicateList.add(builder.equal(kitAlimentacaoEntity.get("serieColegio"), filtro.getSerieColegio()));
 			}
@@ -102,12 +104,19 @@ public class KitAlimentacoesImpl implements KitAlimentacoesQueries{
 			if (filtro.getTurno() != null){
 				predicateList.add(builder.equal(kitAlimentacaoEntity.get("turno"), filtro.getTurno()));
 			}
-			if (filtro.getNome_aluno() != null){
-				predicateList.add(builder.like(kitAlimentacaoEntity.get("nome_aluno"), "%"+filtro.getNome_aluno().toUpperCase()+"%"));
+			if (filtro.getNomeAluno() != null){
+				predicateList.add(builder.like(kitAlimentacaoEntity.get("nomeAluno"), "%"+filtro.getNomeAluno().toUpperCase()+"%"));
 			}
-			
+			if (filtro.getPedido() != null){
+				predicateList.add(builder.equal(kitAlimentacaoEntity.get("pedido"), filtro.getPedido()));
+			}
 		}
 		Predicate[] predArray = new Predicate[predicateList.size()];
 		return predicateList.toArray(predArray);
+	}
+
+	@Override
+	public List<KitAlimentacao> KitAtivo() {
+		return manager.createQuery("from KitAlimentacao where ativo = true", KitAlimentacao.class).getResultList();		
 	}
 }

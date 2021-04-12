@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutEducacaoEspecial}">
+
+<section layout:fragment="conteudo">
+
+	<!-- Portfolio Section -->
+	<section class="page-section portfolio" id="videos">
+		<div class="container">
+			<div class="row">
+				<nav aria-label="breadcrumb" class="col-xs-12 col-sm-12 col-md-12">
+					<ol class="breadcrumb nav-breadcrumb">
+						<li class="breadcrumb-item"><a th:href="@{/}">Início</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Semana do Autismo - Palestra: Dra. Júlia Fonseca Farage Saito (Médica) </li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="row">
+			
+			<div class="divider-custom">
+			        <div class="divider-custom-line"></div>
+			        <div class="divider-custom-icon">
+			          <i class="fas fa-star"></i>
+			        </div>
+			        <div class="divider-custom-line"></div>
+			      </div>
+			
+			      <!-- Masthead Subheading -->
+<!-- 					<h4 class="masthead-subheading text-uppercase mb-0"> AGUARDANDO INÍCIO!</h4>		 -->
+					<div class="col-lg-12 col-md-12 mb-12 mb-lg-0">
+						<h5 class="text-uppercase mb-3 text-center">O que eu preciso saber sobre o autismo?</h5>
+						<div class="video-container">
+							<iframe width="853" height="480"
+								src="https://www.youtube.com/embed/7hcVT1Xw16U" frameborder="0"
+								allowfullscreen> </iframe>
+						</div>
+					</div>
+			</div>
+		</div><br>	
+		
+	</section>
+</section>
+</html>

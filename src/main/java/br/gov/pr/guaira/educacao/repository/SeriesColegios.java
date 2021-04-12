@@ -13,4 +13,5 @@ public interface SeriesColegios extends JpaRepository<SerieColegio, Long>, Serie
 
 	public Optional<SerieColegio> findByNomeIgnoreCase(String nome);
 	public List<SerieColegio> findByOrderByNomeAsc();
+	
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br">
+
+<head>
+
+<body>
+  <section layout:fragment="conteudo">
+            <div class="page-header">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-10">
+							<h1>Gerar relatorio de todos os Kit Alimentação Escolar (ATIVOS)</h1>
+						</div>						
+					</div>
+				</div>
+			</div>		            
+		      <section class="content">
+			      <div class="container-fluid">	
+				      <div class="col-md-12">
+			             <div class="card card-navy">	             
+			             	<br><br><br>
+		                <!--  	<form role="form" class="form" th:object="${kitAlimentacaoFilter}" th:action="@{/relatorios/colegio}" method="get" target="_blank">-->
+		                	<form role="form" class="form" th:object="${kitAlimentacaoFilter}" th:action="@{/relatorios/todosAtivos}" method="POST" target="_blank">
+		                	<div class="card-body">
+		               			<div class="row">									    
+
+							   <div class="bw-field-action hidden">
+									<select id="colegio" class="form-control" th:field="*{colegio}" >
+										<option value="" >Selecione o colegio</option>
+										<option th:each="colegio : ${colegios}"
+											th:value="${colegio.codigo}" th:text="${colegio.nome}"></option>
+									</select>							
+					                </div>
+									<div class="row">		
+									<div class="col-sm-4  form-group">
+											<label for="serieColegio" class="control-label">Série </label>
+											<div class="bw-field-action">
+												<select id="serieColegio" class="form-control" th:field="*{serieColegio}" required>
+													<option value="">Selecione</option>
+													<option th:each="serieColegio : ${seriesColegios}" th:value="${serieColegio.codigo}"
+														th:text="${serieColegio.nome}"></option>
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-4  form-group">
+											<label for="turma" class="control-label">Turma </label>
+													<select class="form-control" th:field="*{turma}" required>
+														<option value="" >Selecione</option>
+														<option th:each="turmas : ${turma}" th:value="${turmas}"
+															th:text="${turmas.descricao}">Turma</option>
+													</select>
+										</div>
+										<div class="col-sm-4  form-group">
+											<label for="turno" class="control-label">Turno </label>
+													<select class="form-control" th:field="*{turno}" required>
+														<option value="" >Selecione</option>
+														<option th:each="turnos : ${turno}" th:value="${turnos}"
+															th:text="${turnos.descricao}">Turma</option>
+													</select>
+										</div>
+									</div>	
+							                 	        
+		                  		</div>
+		                  	</div> 
+		                  	<div class="card-footer" align="right">						           
+								 <button type="submit" class="btn btn-primary" >Buscar</button>
+							</div>  
+							</form>       
+			             </div>	             
+			          </div>
+			      </div>
+		      </section>
+      
+	</section>
+</body>
+</html>
