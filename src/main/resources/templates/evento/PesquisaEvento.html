@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+	
+	
+<head>
+<title>Pesquisa de eventos</title>
+</head>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1>Pesquisa eventos</h1>
+				</div>
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn btn-default" th:href="@{/eventos/nova}"> <i
+							class="glyphicon  glyphicon-plus-sign"></i> <span
+							class="hidden-xs  hidden-sm">Nova</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${eventoFilter}"autocomplete="off">
+			<div class="row  bw-required">
+					<div class="col-sm-12  form-group" plano:classforerror="nome">
+						<label for="nome" class="control-label" >Nome</label> <input
+							id="nome" type="text" class="form-control" th:field="*{nome}"  autocomplete="true"/>
+					</div>
+			</div>
+			<div class="row">
+			<div class="col-sm-6  form-group" plano:classforerror="dataInicial" >
+					<label for="dataInicial" class="control-label">Data Início</label> 
+					<input id="dataInicial" type="text" class="form-control  js-date" th:field="*{dataInicial}" />
+				</div>
+				<div class="col-sm-6  form-group" plano:classforerror="dataFinal">
+					<label for="dataFinal" class="control-label">Data Final</label> 
+					<input id="dataFinal" type="text" class="form-control  js-date" th:field="*{dataFinal}" />
+				</div>
+			</div>
+						
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+		</form>
+		<div class="table-responsive  py-tabela-simples">
+			<table class="table  table-hover">
+				<thead>
+					<tr>
+					    <th class="table-cervejas-col-foto"></th>
+						<th>
+							Evento
+						</th>
+						<th>
+							Data inicio
+						</th>
+						<th>
+							Data final
+						</th>
+						<th class="table-hospedagem-col-acoes  text-center">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="evento : ${pagina.conteudo}">
+					    <td class="text-center">			
+<!-- 					    <img th:src="@{/fotos/thumbnail.22172983-b0fa-4c0f-9d3d-cdccc6ec84a4_logoPrefeitura.png}" class="img-responsive"/>				 -->
+<!-- 							<img th:src="@{/fotos/thumbnail.{foto}(foto=${evento.foto})}" class="img-responsive"/> -->
+							<img th:src="${evento.urlThumbnailFoto}" class="img-responsive"/>
+						</td>
+					    <td th:text="${evento.nome}"></td>
+						<td th:text="${#temporals.format(evento.dataInicial, 'dd/MM/yyyy')}"></td>
+						<td th:text="${#temporals.format(evento.dataFinal, 'dd/MM/yyyy')}"></td>
+						<td class="text-center">
+							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" 
+							 th:href="@{/eventos/{codigo}(codigo=${evento.codigo})}"> 
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="#"
+							th:attr="data-codigo=${evento.codigo}, data-url=@{/eventos/{codigo}(codigo=${evento.codigo})}, 
+ 							data-objeto=${evento.nome}"> 
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</td>
+					</tr>
+
+				<tr th:if="${pagina.vazia}">
+						<td colspan="4">Nenhuma semana encontrada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+			<plano:pagination page="${pagina}"/>
+	</div>
+</section>
+</html>

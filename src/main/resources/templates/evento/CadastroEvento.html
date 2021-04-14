@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br">
+<head>
+<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}" />
+<title>Cadastro de eventos</title>
+</head>	
+
+<section layout:fragment="conteudo">
+<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1 th:if="${evento.nova}">Cadastro de eventos</h1>
+					 <h1 th:unless="${evento.nova}" th:text="|Edição do evento ${evento.nome}|">Edição da eventos</h1> 
+				</div>
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn btn-default" th:href="@{/eventos}"> <i
+							class="glyphicon glyphicon-search"></i> 
+							<span class="hidden-xs  hidden-sm">Pesquisa</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+	<form method="POST" th:object="${evento}" class="form-vertical  js-form-loading" autocomplete="off"
+			th:action="${evento.nova} ? @{/eventos/nova} : @{/eventos/{codigo}(codigo=${evento.codigo})}">
+			
+			<input type="hidden" th:field="*{codigo}" />
+			<div layout:insert="fragments/Mensagem"></div>
+			<div layout:insert="fragments/MensagemErro"></div>
+			
+			<div class="row  bw-required">
+				<div class="col-sm-12  form-group" plano:classforerror="nome">
+					<label for="nome" class="control-label" >Nome</label> <input
+						id="nome" type="text" class="form-control" th:field="*{nome}"  autocomplete="true"/>
+				</div>
+			</div>
+			<div class="row  bw-required">
+				<div class="col-sm-6  form-group" plano:classforerror="dataInicial">
+					<label for="dataInicial" class="control-label">Data Início</label> 
+					<input id="dataInicial"  type="text" class="form-control  js-date" th:field="*{dataInicial}"/>
+				</div>
+				<div class="col-sm-6  form-group" plano:classforerror="dataFinal">
+					<label for="dataFinal" class="control-label">Data Final</label> 
+					<input id="dataFinal" type="text" class="form-control  js-date" th:field="*{dataFinal}" />
+				</div>
+			</div>
+			<div class="row  bw-required">
+				<div class="col-sm-12  form-group">
+					<label for="dataFinal" class="control-label">Arte do Evento</label> 
+					<input type="hidden" th:field="*{foto}"> 
+						<input type="hidden" th:field="*{contentType}">
+						<input type="hidden" th:field="*{novaFoto}">
+						<input type="hidden" th:field="*{urlFoto}"> 
+							
+							<label class="control-label">Foto</label>
+
+						<div class="js-container-foto-cerveja"
+							th:attr="data-url-fotos=@{/fotos}">
+							<div id="upload-drop" class="bw-upload">
+								<img th:src="@{/images/mini-loading.gif}" class="js-img-loading  hidden"/>
+								<i class="glyphicon  glyphicon-cloud-upload"></i> <span>Arraste
+									a foto aqui ou </span> <a class="bw-upload-form-file">selecione <input
+									id="upload-select" type="file" accept=".jpg,.jpeg,.png" /></a>
+							</div>
+						</div>
+				</div>
+			</div>					
+			<div class="form-group">
+				<button class="btn  btn-primary  js-btn-submit" type="submit">Salvar</button>
+			</div>
+	</form>
+</div>
+<th:block th:replace="hbs/FotoCerveja"></th:block>
+</section>	
+<th:block layout:fragment="javascript-extra">
+		
+		<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/upload.min.js}"></script>	
+		<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>	
+		<script th:src="@{/javascripts/cerveja.upload-foto.js}"></script>
+		
+
+	</th:block>
+</html>

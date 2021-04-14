@@ -171,7 +171,7 @@ public class InicioController {
 	}
 	@GetMapping("/educacaoespecial")
 	public ModelAndView educacaoEspecial() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/ListaEventos");
+		ModelAndView mv = new ModelAndView("educacaoespecial/educacaoEspecial.html");
 		
 		return mv;
 	}
@@ -231,6 +231,7 @@ public class InicioController {
 		HttpServletRequest httpServletRequest, @PathVariable("codigoSerie") Long codigoSerie) {		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();		
 		ModelAndView mv = new ModelAndView("plano/ListaSemanasSite");
+		System.out.println(this.semanas.buscaSemanasSite(authentication.getName(), this.series.getOne(codigoSerie)));
 		mv.addObject("semanas", this.semanas.buscaSemanasSite(authentication.getName(), this.series.getOne(codigoSerie)));
 		mv.addObject("serie", codigoSerie);		
 		return mv;

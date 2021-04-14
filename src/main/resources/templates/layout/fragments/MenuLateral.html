@@ -45,6 +45,10 @@
 			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/serieColegio}">
 			            	<i class="fa  fa-fw  fa-bars"></i>Series</a>
 			            </li>
+			            <li th:if="${#authentication.principal.usuario.colegio == null}" class="aw-menu__item  aw-menu__item--link" portal:menu="@{/serieColegio.*}">
+			            	<a sec:authorize ="hasRole('EDUCACAO_ESPECIAL')" th:href="@{/eventos}">
+			            	<i class="fa  fa-fw  fa-bars"></i>Eventos</a>
+			            </li>
           			</ul>
         		</li>
         		<li class="aw-menu__item" th:if="${#authentication.principal.usuario.colegio == null}">

@@ -103,7 +103,7 @@ public class SemanasImpl implements SemanasQueries {
 		predicateList.add(builder.exists(subquery));
 		query.select(semanaEntity);
 		query.where(predicateList.toArray(new Predicate[0]));
-		query.orderBy(builder.desc(semanaEntity.get("codigo")));
+		query.orderBy(builder.desc(semanaEntity.get("dataInicial")));
 		
 		TypedQuery<Semana> typeQuery = manager.createQuery(query);
 		return typeQuery.setMaxResults(6).getResultList();

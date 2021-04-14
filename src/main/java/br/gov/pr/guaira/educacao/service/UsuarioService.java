@@ -28,7 +28,7 @@ public class UsuarioService {
 		
 		Optional<Usuario> usuarioExistente = this.usuarios.findByEmailIgnoreCase(usuario.getEmail());
 		
-		if(usuarioExistente.isPresent() && !usuarioExistente.get().equals(usuario)) {
+		if(usuarioExistente.isPresent() && !usuarioExistente.get().equals(usuario) && usuario.isNovo()) {
 			throw new EmailUsuarioJaCadastrado("E-mail já cadastrado!");
 		}
 		

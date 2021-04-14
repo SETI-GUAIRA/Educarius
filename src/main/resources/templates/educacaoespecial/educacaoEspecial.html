@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutEducacaoEspecial}"
+	xmlns:plano="http://ti.guaira.pr.gov.br">
+
+<section layout:fragment="conteudo">
+   <section class="copyright py-4 text-center text-white">
+		<div class="container">
+			<h1 class="text-center text-white">Sobre Autismo</h1>
+		</div>
+	</section>
+	
+	<div class="container">
+		<div class="row">
+		<div class="col-md-3 col-lg-3 "><br>
+				<h4 class="titulo">Curiosidades</h4>
+					<div class="portfolio-item mx-auto" data-toggle="modal"
+							data-target="#portfolioModal1">
+						<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+							<div class="portfolio-item-caption-content text-center text-white">	</div>
+					   </div>
+					  <img class="img-fluid img_folder" src="img/educacao_especial/curiosidades.jpg" alt="">
+				</div>
+		</div>
+		<div class="col-md-3 col-lg-3"><br>
+				<h4 class="titulo">Causas do Autismo</h4>
+					<div class="portfolio-item mx-auto" data-toggle="modal"
+							data-target="#portfolioModal2">
+						<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+							<div class="portfolio-item-caption-content text-center text-white">	</div>
+					   </div>
+					  <img class="img-fluid img_folder" src="img/educacao_especial/autismo-01.jpg" alt="">
+				</div>
+		</div>
+		<div class="col-md-3 col-lg-3"><br>
+				<h4 class="titulo">Sinais e Alertas</h4>
+					<div class="portfolio-item mx-auto" data-toggle="modal"
+							data-target="#portfolioModal3">
+						<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+							<div class="portfolio-item-caption-content text-center text-white">	</div>
+					   </div>
+					  <img class="img-fluid img_folder" src="img/educacao_especial/autismo-02.jpg" alt="">
+				</div>
+		</div>
+		<div class="col-md-3 col-lg-3"><br>
+				<h4 class="titulo">Educação</h4>
+					<div class="portfolio-item mx-auto" data-toggle="modal"
+							data-target="#portfolioModal4">
+						<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+							<div class="portfolio-item-caption-content text-center text-white">	</div>
+					   </div>
+					  <img class="img-fluid img_folder" src="img/educacao_especial/autismo-03.jpg" alt="">
+				</div>
+		</div>
+		
+				 								
+	  </div>	
+  </div>	
+  <section class="copyright py-4 text-center text-white">
+		<div class="container">
+			<h1 class="text-center text-white">Eventos  Educação Especial </h1>
+		</div>
+	</section>
+  <section class="page-section portfolio" id="semanas">
+ 	<div class="container">
+ 		<div class="row">
+	     	<nav aria-label="breadcrumb" class="col-xs-12 col-sm-12 col-md-6">
+ 				<ol class="breadcrumb nav-breadcrumb">
+    				<li class="breadcrumb-item"><a th:href="@{/}">Início</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">Eventos</li>
+  				</ol>
+			</nav>
+		</div>
+	</div>
+ <!-- Portfolio Section Heading -->
+<!--       <h2 class="text-center text-uppercase text-secondary mb-4">Clique na semana desejada e bons estudos</h2> -->
+      <div class="container">
+           <div class="row"> 
+			 <div class="col-md-4 col-lg-4">
+					<h6 class="text-center">Semana do Autismo</h6>
+					<div class="portfolio-item mx-auto">
+						<a th:href="@{/educacaoespecial/eventos}">
+							<div
+								class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+								<div
+									class="portfolio-item-caption-content text-center text-white">
+									<i class="fas fa-plus fa-3x"></i>
+								</div>
+							</div>
+						</a> <img class="img-fluid" src="img/educacao_especial/autismo.jpeg" alt="">
+					</div>
+				</div>
+
+				<div class="col-md-4 col-lg-4">
+					<h6 class="text-center">Dia internacional da Síndrome de Down</h6>
+					<div class="portfolio-item mx-auto">
+						<a th:href="@{/educacaoespecial/eventos01}">
+							<div
+								class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+								<div
+									class="portfolio-item-caption-content text-center text-white">
+									<i class="fas fa-plus fa-3x"></i>
+								</div>
+							</div>
+						</a> <img class="img-fluid" src="img/educacao_especial/sindrome.jpg" alt="">
+					</div>
+				</div>
+       
+      	</div>
+      </div>
+      <div class="portfolio-modal modal fade" id="portfolioModal1"
+		tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label"
+		aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal"aria-label="Close"><span aria-hidden="true"> <i class="fas fa-times"></i></span></button>
+				<div class="modal-body text-center">
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-lg-8">
+							    <img class="img-fluid" src="img/educacao_especial/curiosidades.jpg" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="portfolio-modal modal fade" id="portfolioModal2"
+		tabindex="-1" role="dialog" aria-labelledby="portfolioModal2Label"
+		aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal"aria-label="Close"><span aria-hidden="true"> <i class="fas fa-times"></i></span></button>
+				<div class="modal-body text-center">
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-lg-8">
+							    <img class="img-fluid" src="img/educacao_especial/autismo-01.jpg" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="portfolio-modal modal fade" id="portfolioModal3"
+		tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label"
+		aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal"aria-label="Close"><span aria-hidden="true"> <i class="fas fa-times"></i></span></button>
+				<div class="modal-body text-center">
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-lg-8">
+							    <img class="img-fluid" src="img/educacao_especial/autismo-02.jpg" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="portfolio-modal modal fade" id="portfolioModal4"
+		tabindex="-1" role="dialog" aria-labelledby="portfolioModal4Label"
+		aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal"aria-label="Close"><span aria-hidden="true"> <i class="fas fa-times"></i></span></button>
+				<div class="modal-body text-center">
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-lg-8">
+							    <img class="img-fluid" src="img/educacao_especial/autismo-03.jpg" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
+</section>
+
+</html>
