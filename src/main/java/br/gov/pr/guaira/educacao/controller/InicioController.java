@@ -18,11 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.gov.pr.guaira.educacao.controller.page.PageWrapper;
 import br.gov.pr.guaira.educacao.filter.AulaFilter;
+import br.gov.pr.guaira.educacao.filter.EventoFilter;
 import br.gov.pr.guaira.educacao.filter.SemanaFilter;
+import br.gov.pr.guaira.educacao.filter.PalestraFilter;
 import br.gov.pr.guaira.educacao.model.Aula;
-import br.gov.pr.guaira.educacao.model.KitAlimentacao;
+import br.gov.pr.guaira.educacao.model.Palestra;
 import br.gov.pr.guaira.educacao.repository.Aulas;
+import br.gov.pr.guaira.educacao.repository.Eventos;
 import br.gov.pr.guaira.educacao.repository.Materias;
+import br.gov.pr.guaira.educacao.repository.Palestras;
 import br.gov.pr.guaira.educacao.repository.Semanas;
 import br.gov.pr.guaira.educacao.repository.Series;
 
@@ -35,9 +39,11 @@ public class InicioController {
 	@Autowired
 	private Aulas aulas;
 	@Autowired
+	private Eventos eventos;
+	@Autowired
 	private Series series;
 	@Autowired
-	private Materias materias;
+	private Palestras palestras;
 	
 	@GetMapping
 	public ModelAndView inicio() {
@@ -74,8 +80,7 @@ public class InicioController {
 	}
 	@GetMapping("/sexta")
 	public ModelAndView sexta() {
-		ModelAndView mv = new ModelAndView("plano/sexta");
-		
+		ModelAndView mv = new ModelAndView("plano/sexta");		
 		return mv;
 	}
 	
@@ -88,8 +93,7 @@ public class InicioController {
 	
 	@GetMapping("/domingo")
 	public ModelAndView domingo() {
-		ModelAndView mv = new ModelAndView("plano/domingo");
-		
+		ModelAndView mv = new ModelAndView("plano/domingo");		
 		return mv;
 	}
 	
@@ -115,66 +119,85 @@ public class InicioController {
 		return mv;
 	}
 //	EDUCAÇÁO ESPECIAL------------------------------
-	@GetMapping("/educacaoespecial/eventos")
-	public ModelAndView educacaoEspecialEvento() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/EventosDisponiveis");
-		
+	@GetMapping("/educacaoespecial")
+	public ModelAndView educacaoEspecialEventos(EventoFilter eventoFilter, BindingResult result, @PageableDefault(size=10) Pageable pageable, 
+			 HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("educacaoespecial/educacaoEspecial.html");	
+		mv.addObject("eventos", this.eventos.findAll());		
+		return mv;
+	}
+	@GetMapping("/educacaoespecial/eventos/{codigoEvento}")
+	public ModelAndView educacaoEspecialEvento(@PathVariable("codigoEvento") Long codigoEvento, PalestraFilter palestraFilter , @PageableDefault(size = 15) Pageable pageable, 
+			HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("educacaoespecial/EventosDisponiveis");	
+		mv.addObject("eventos", this.eventos.findById(codigoEvento).get());
+		palestraFilter.setEvento(this.eventos.findById(codigoEvento).get());
+		PageWrapper<Palestra> paginaWrapper = new PageWrapper<>(this.palestras.filtrar(palestraFilter, pageable), httpServletRequest);		
+		mv.addObject("pagina", paginaWrapper);
+		return mv;
+	}
+	@GetMapping("/educacaoespecial/palestras/{codigoPalestra}")
+	public ModelAndView educacaoEspecialEventoPalestra(@PathVariable("codigoPalestra") Long codigoPalestra, PalestraFilter palestraFilter , @PageableDefault(size = 15) Pageable pageable, 
+			HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("educacaoespecial/Palestra");	
+	//    mv.addObject("eventos", this.eventos.findById(codigoEvento).get());
+//		palestraFilter.setEvento(this.eventos.findById(codigoEvento).get());
+		mv.addObject("palestras", this.palestras.findById(codigoPalestra).get());
+		PageWrapper<Palestra> paginaWrapper = new PageWrapper<>(this.palestras.filtrar(palestraFilter, pageable), httpServletRequest);		
+		mv.addObject("pagina", paginaWrapper);
 		return mv;
 	}
 
-	@GetMapping("/educacaoespecial/eventos01")
-	public ModelAndView educacaoEspecialEvento01() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/Evento01");		
-		return mv;
-	}
-	@GetMapping("/educacaoespecial/eventos02")
-	public ModelAndView educacaoEspecialEvento02() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/Evento02");
-		
-		return mv;
-	}
-	@GetMapping("/educacaoespecial/eventos03")
-	public ModelAndView educacaoEspecialEvento03() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/Evento03");
-		
-		return mv;
-	}
-	@GetMapping("/educacaoespecial/eventos04")
-	public ModelAndView educacaoEspecialEvento04() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/Evento04");
-		
-		return mv;
-	}
-	@GetMapping("/educacaoespecial/eventos05")
-	public ModelAndView educacaoEspecialEvento05() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/Evento05");
-		
-		return mv;
-	}
-	@GetMapping("/educacaoespecial/eventos06")
-	public ModelAndView educacaoEspecialEvento06() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/Evento06");
-		
-		return mv;
-	}
-	@GetMapping("/educacaoespecial/eventos07")
-	public ModelAndView educacaoEspecialEvento07() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/Evento07");
-		
-		return mv;
-	}
-	@GetMapping("/educacaoespecial/eventos08")
-	public ModelAndView educacaoEspecialEvento08() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/Evento08");
-		
-		return mv;
-	}
-	@GetMapping("/educacaoespecial")
-	public ModelAndView educacaoEspecial() {
-		ModelAndView mv = new ModelAndView("educacaoespecial/educacaoEspecial.html");
-		
-		return mv;
-	}
+//	@GetMapping("/educacaoespecial/eventos01")
+//	public ModelAndView educacaoEspecialEvento01() {
+//		ModelAndView mv = new ModelAndView("educacaoespecial/Evento01");		
+//		return mv;
+//	}
+//	@GetMapping("/educacaoespecial/eventos02")
+//	public ModelAndView educacaoEspecialEvento02() {
+//		ModelAndView mv = new ModelAndView("educacaoespecial/Evento02");
+//		
+//		return mv;
+//	}
+//	@GetMapping("/educacaoespecial/eventos03")
+//	public ModelAndView educacaoEspecialEvento03() {
+//		ModelAndView mv = new ModelAndView("educacaoespecial/Evento03");
+//		
+//		return mv;
+//	}
+//	@GetMapping("/educacaoespecial/eventos04")
+//	public ModelAndView educacaoEspecialEvento04() {
+//		ModelAndView mv = new ModelAndView("educacaoespecial/Evento04");
+//		
+//		return mv;
+//	}
+//	@GetMapping("/educacaoespecial/eventos05")
+//	public ModelAndView educacaoEspecialEvento05() {
+//		ModelAndView mv = new ModelAndView("educacaoespecial/Evento05");
+//		
+//		return mv;
+//	}
+//	@GetMapping("/educacaoespecial/eventos06")
+//	public ModelAndView educacaoEspecialEvento06() {
+//		ModelAndView mv = new ModelAndView("educacaoespecial/Evento06");
+//		
+//		return mv;
+//	}
+//	@GetMapping("/educacaoespecial/eventos07")
+//	public ModelAndView educacaoEspecialEvento07() {
+//		ModelAndView mv = new ModelAndView("educacaoespecial/Evento07");
+//		
+//		return mv;
+//	}
+//	@GetMapping("/educacaoespecial/eventos08")
+//	public ModelAndView educacaoEspecialEvento08() {
+//		ModelAndView mv = new ModelAndView("educacaoespecial/Evento08");
+//		
+//		return mv;
+//	}
+	
+	
+	
 //	--------------------------------------------
 	
 	@GetMapping("/atividadesBncc")

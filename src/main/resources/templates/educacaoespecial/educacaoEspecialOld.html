@@ -77,15 +77,37 @@
  <!-- Portfolio Section Heading -->
 <!--       <h2 class="text-center text-uppercase text-secondary mb-4">Clique na semana desejada e bons estudos</h2> -->
       <div class="container">
-      	<div class="row">
-      		<div class="col-md-3 col-lg-3" th:each="evento : ${eventos}">      		
-         		<div class="portfolio-item eventoFoto">
-         		<div class="tituloFotoEvento" th:text="${evento.nome}"></div>         		    
-            		<a th:href="@{/educacaoespecial/eventos/{codigo}(codigo=${evento.codigo})}">		           	
-		           		        <img th:src="${evento.urlFoto}" class="eventoFotoTam"/>	
-           		    </a>
-               </div>
-           </div> 
+           <div class="row"> 
+			 <div class="col-md-4 col-lg-4">
+					<h6 class="text-center">Semana do Autismo</h6>
+					<div class="portfolio-item mx-auto">
+						<a th:href="@{/educacaoespecial/eventos}">
+							<div
+								class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+								<div
+									class="portfolio-item-caption-content text-center text-white">
+									<i class="fas fa-plus fa-3x"></i>
+								</div>
+							</div>
+						</a> <img class="img-fluid" src="img/educacao_especial/autismo.jpeg" alt="">
+					</div>
+				</div>
+
+				<div class="col-md-4 col-lg-4">
+					<h6 class="text-center">Dia internacional da Síndrome de Down</h6>
+					<div class="portfolio-item mx-auto">
+						<a th:href="@{/educacaoespecial/eventos01}">
+							<div
+								class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+								<div
+									class="portfolio-item-caption-content text-center text-white">
+									<i class="fas fa-plus fa-3x"></i>
+								</div>
+							</div>
+						</a> <img class="img-fluid" src="img/educacao_especial/sindrome.jpg" alt="">
+					</div>
+				</div>
+       
       	</div>
       </div>
       <div class="portfolio-modal modal fade" id="portfolioModal1"

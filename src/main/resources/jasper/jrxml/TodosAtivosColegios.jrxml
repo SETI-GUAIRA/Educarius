@@ -55,9 +55,9 @@ ORDER BY colegio.tipo]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="111" splitType="Stretch">
+		<band height="120" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="95" width="100" height="16" uuid="365eb156-7821-41e8-be0e-f8defeca62b6"/>
+				<reportElement x="0" y="93" width="110" height="16" uuid="365eb156-7821-41e8-be0e-f8defeca62b6"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
@@ -68,18 +68,19 @@ ORDER BY colegio.tipo]]>
 				<textElement textAlignment="Center">
 					<font size="26" isBold="true"/>
 				</textElement>
-				<text><![CDATA[não valido para pedidos]]></text>
+				<text><![CDATA[Não valido para pedidos]]></text>
 			</staticText>
-			<textField pattern="MMMM d, yyyy">
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="454" y="90" width="100" height="20" uuid="fa042942-c117-41ac-8c73-cd612d8827f4"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="180" y="64" width="105" height="36" uuid="ae94ee82-70e8-495d-88bb-d1fdad2349f1"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="100" y="66" width="453" height="22" uuid="ae94ee82-70e8-495d-88bb-d1fdad2349f1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total de Pedidos:]]></text>
+				<text><![CDATA[Total de Pedidos]]></text>
 			</staticText>
 			<image>
 				<reportElement x="0" y="0" width="99" height="98" uuid="07daef44-4f68-421b-9cb7-5b5d1a4e4e5d"/>
@@ -93,7 +94,7 @@ ORDER BY colegio.tipo]]>
 				<text><![CDATA[ Kit de Alimentação Escolar ATIVOS]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="280" y="62" width="87" height="40" uuid="8a9c35b0-8bae-4843-b226-2353c23bb6d8">
+				<reportElement x="280" y="84" width="87" height="30" uuid="8a9c35b0-8bae-4843-b226-2353c23bb6d8">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>

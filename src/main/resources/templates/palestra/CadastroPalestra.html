@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br">
+
+<head>
+<title>Cadastro de Palestra</title>
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+<link href="https://unpkg.com/quill-better-table@1.2.8/dist/quill-better-table.css" rel="stylesheet">
+<!-- <link rel="stylesheet" th:href="@{/stylesheets/fileinput.css}"> -->
+<!-- <link rel="stylesheet" th:href="@{/stylesheets/fileinput.min.css}"> -->
+</head>
+
+<section layout:fragment="conteudo">
+
+<div class="container fundoForm">
+           <div class="nomeForm tituloFundo">
+				<div class="row">
+					<div class="col-xs-9">
+						<h1 th:if="${palestra.nova}">Cadastro de palestra</h1>
+						 <h1 th:unless="${palestra.nova}" th:text="|Edição da palestra ${palestra.nomePalestra}|">Edição de palestra</h1> 
+					</div>
+					<div class="col-xs-3">
+						<div class="btnPesq">
+							<a   th:href="@{/palestras}">							
+							<i class="fa  fa-fw  fa-search">&nbsp;&nbsp;Pesquisar</i> 
+<!-- 								<span class="hidden-xs  hidden-sm">Pesquisa</span> -->
+							</a>
+						</div>
+					</div>
+				</div>
+		   </div>
+	<div class="container-fluid">
+
+		<form method="POST" th:object="${palestra}" autocomplete="off"
+			class="form  js-form-loading"
+			th:action="${palestra.nova} ? @{/palestras/nova} : @{/palestras/{codigo}(codigo=${palestra.codigo})}" 
+			encType="multipart/form-data">
+			
+			<input type="hidden" th:field="*{codigo}" />
+			<input type="hidden" th:field="*{descricao}"/>			
+			<input type="hidden" th:field="*{descricaoHtml}"/>			
+<!-- 			<input type="hidden" th:field="*{fotoPatestrante}"/> -->
+<!-- 			<input type="hidden" th:field="*{fotoType}"/> -->
+			
+			
+			<div layout:insert="fragments/Mensagem"></div>
+			<div layout:insert="fragments/MensagemErro"></div>
+
+			<div class="row  bw-required">
+				<div class="col-sm-12  form-group" plano:classforerror="evento">
+					<label for="evento" class="control-label">Evento</label> 
+					<div class="bw-field-action">
+						<select id="evento" class="form-control" th:field="*{evento}">
+							<option value="">Selecione um evento</option>
+							<option th:each="evento : ${eventos}"
+								th:value="${evento.codigo}" th:text="${evento.nome}"></option>
+						</select>
+					</div>
+				</div>
+			</div>	
+			<div class="row  bw-required">
+				<div class="col-sm-12  form-group" plano:classforerror="nomePalestra">
+					<label for="nomePalestra" class="control-label" >Nome  Palestra</label> <input
+						id="nomePalestra" type="text" class="form-control" th:field="*{nomePalestra}"  autocomplete="true"/>
+				</div>
+			</div>	
+			<div class="row  bw-required">
+				<div class="col-sm-8  form-group" plano:classforerror="nomePalestrante">
+					<label for="nomePalestrante" class="control-label" >Nome  Palestrante</label> <input
+						id="nomePalestrante" type="text" class="form-control" th:field="*{nomePalestrante}"  autocomplete="true"/>
+				</div>
+				<div class="col-sm-1  form-group img-container">
+					<div th:unless="${palestra.nova}">					
+					      <div th:unless="${palestra.fotoNome.isEmpty()}">
+                        	<img class="img-fluid img-thumb " th:src="@{'/palestras/downloadFile/'+${palestra.codigo}}" id="img"/>
+                        		
+                          </div>	
+                          <div th:if="${palestra.fotoNome.isEmpty()}">	
+                          		<img class="img-fluid img-thumb " th:src="@{/images/avatar.jpg}" id="img"/>
+                        		
+                          </div>
+					</div>
+					<div th:if="${palestra.nova}"> <img class="img-fluid img-thumb " th:src="@{/images/avatar.jpg}" id="img"/></div>
+				</div>
+				<div class="col-sm-3  form-group" >
+                    <label for="nomePalestra" class="control-label" >Selecione uma foto</label> 			       				
+					<div class="bw-upload2 bw-upload-form-file2"> 
+						<input id="upload" type="file" name="files" value="@{/images/avatar.jpg}"  accept=".jpg,.jpeg,.png"/>
+					</div>	
+				</div>
+			</div>		
+			<div class="row  bw-required">
+				<div class="col-sm-4  form-group"
+					plano:classforerror="urlVideoAula1">
+					<label for="urlVideoAula" class="control-label">Link vídeo
+						aula</label> <input id="urlVideoAula1" type="text" class="form-control"
+						th:field="*{urlVideoAula1}" />
+				</div>
+				<div class="col-sm-4  form-group"
+					plano:classforerror="urlVideoAula2">
+					<label for="urlVideoAula2" class="control-label">Link 2</label> 
+					<input id="urlVideoAula2" type="text" class="form-control" th:field="*{urlVideoAula2}" />
+				</div>				
+				<div class="col-sm-4  form-group" plano:classforerror="dataInicial">
+					<label for="dataInicial" class="control-label">Data Início</label> 
+					<input id="dataInicial"  type="datetime-local" class="form-control" th:field="*{dataInicial}"/>
+				</div>					
+			</div>
+			
+			<div class="row  bw-required">
+				<div class="col-sm-12  form-group">
+					<label for="desc" class="control-label">Decrição do palestrante</label>
+					<div class="desc" id="desc" style="height: 100px; background-color:white"></div>
+				</div>				
+			</div>
+			<div class="form-group text-right">
+				<button class="btn  btn-primary  js-btn-submit" type="submit"><i class="fa  fa-fw  fa-floppy-o"></i>Salvar</button>
+			</div>
+		</form>
+		
+	</div></div>
+</section>
+<th:block layout:fragment="javascript-extra"> 
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+	<script th:src="@{/javascripts/plano2.text-editor.js}"></script>
+<!-- 	<script th:src="@{/javascripts/vendors/upload.min.js}"></script> -->
+<!-- 	<script th:src="@{/javascripts/cerveja.upload-foto.js}"></script> -->
+	<script>
+        $(function(){
+            $('#upload').change(function(){
+                const file = $(this)[0].files[0]
+                const fileReader = new FileReader()
+                fileReader.onloadend = function(){
+					$('#img').attr('src',fileReader.result)
+                    }
+                	fileReader.readAsDataURL(file)
+                })
+            })
+	</script>
+
+</th:block>
+
+</html>

@@ -9,39 +9,12 @@
 
 <body>
   <section layout:fragment="conteudo">
-<!-- 	  <section class="content-header"> -->
-<!-- 		  <div class="container-fluid"> -->
-<!-- 		      <div class="row mb-2"> -->
-<!-- 			      <h2 th:text="${conn}" /></h2> -->
-<!-- 		  	  </div> -->
-<!-- 		  </div>   -->
-<!--       </section>     -->
-      
-      
-<!--   	  <section class="content">	     -->
-<!--                 	<div class="card-body"> -->
-<!--                			<div class="row"> -->
-<!--                   			<div class="col-md-6"> -->
-<!--                   			<a class="btn  btn-primary   btn-xs  js-tooltip  js-carterinha-btn" title="relatorio" -->
-<!--                              th:href="@{/relatorios/todos/(acao='V')}" target="_blank"> -->
-<!--                           	<i class="far fa-folder-open fa-lg"></i> -->
-<!--                            </a>  -->
-<!--                   				<a th:href="@{/relatorios/todos/(acao='V')}" target="_blank">Abrir</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
-                  				
-<!--                   			<a class="btn  btn-primary  btn-xs  js-tooltip  js-carterinha-btn" title="relatorio" -->
-<!--                              th:href="@{/relatorios/todos/(acao='D')}"> -->
-<!--                           	<i class="fas fa-download fa-lg"></i> -->
-<!--                            </a>	 -->
-<!-- 								<a th:href="@{/relatorios/todos/(acao='D')}">Download</a> -->
-<!--                   	        </div> -->
-<!--                   		</div> -->
-<!--                   	</div>  -->
-<!--             </section> -->
-            <div class="page-header">
-				<div class="container-fluid">
+     <div class="container fundoForm">  
+		<div class="page-header">
+				<div class="nomeForm tituloFundo">	
 					<div class="row">
 						<div class="col-xs-10">
-							<h1>Gerar Recibo de entrega do Kit de Alimentação Escolar</h1>
+							<h2>Gerar Recibo de entrega do Kit de Alimentação Escolar</h2>
 						</div>						
 					</div>
 				</div>
@@ -49,9 +22,7 @@
 		      <section class="content">
 			      <div class="container-fluid">	
 				      <div class="col-md-12">
-			             <div class="card card-navy">	             
-			             	<br><br><br>
-		                <!--  	<form role="form" class="form" th:object="${kitAlimentacaoFilter}" th:action="@{/relatorios/colegio}" method="get" target="_blank">-->
+			             <div class="card card-navy">  
 		                	<form role="form" class="form" th:object="${kitAlimentacaoFilter}" th:action="@{/relatorios/recibo}" method="POST" target="_blank">
 		                	<div class="card-body">
 		                		<div class="row">	
@@ -104,19 +75,19 @@
 															th:text="${turnos.descricao}">Turma</option>
 													</select>
 										</div>
-									</div>	
-							                 	        
+									</div>	  	        
 		                  		</div>
-		                  	</div> 
-		                  	<div class="card-footer" align="right">						           
-								 <button type="submit" class="btn btn-primary" >Buscar</button>
-							</div>  
-							</form>       
+			                  	<div class="form-group text-right">			
+									<button type="submit" class="btn  btn-primary ">
+									<i class="fa  fa-fw  fa-search "></i>Buscar
+									</button>
+								</div>				
+							</form>  
+							</div>      
 			             </div>	             
-			          </div>
-			      
+			          </div>			      
 		      </section>
-      
+      </div>
 	</section>
 </body>
 </html>

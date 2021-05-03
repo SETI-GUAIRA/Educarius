@@ -9,25 +9,43 @@
 <title>Cadastro de Escolas</title>
 </head>
 <section layout:fragment="conteudo">
-
-	<div class="page-header">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-10">
-					<h1 th:if="${colegio.nova}">Cadastro escolas</h1>
-					<h1 th:unless="${colegio.nova}" th:text="|Edição - ${colegio.nome}|"></h1>
-				</div>
-				<div class="col-xs-2">
-					<div class="aw-page-header-controls">
-						<a class="btn btn-default" th:href="@{/colegios}"> <i
-							class="glyphicon glyphicon-search"></i> <span
-							class="hidden-xs  hidden-sm">Pesquisa</span>
-						</a>
+	<div class="container fundoForm">  
+	<!--     <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Cadastro de Kit Alimentação</h2>  -->
+	    <div class="page-header">
+			<div class="nomeForm tituloFundo">		
+				<div class="row">
+					<div class="col-xs-9 ">
+						<h2 th:if="${colegio.nova}">Cadastro escolas</h2> 
+						<h2 class="TituloForm" th:unless="${colegio.nova}" th:text="|Edição - ${colegio.nome}|"></h2>
+					</div>
+					<div class="col-xs-3">
+						<div class="btnPesq">
+								<a   th:href="@{/colegios}">							
+								<i class="fa  fa-fw  fa-search">&nbsp;&nbsp;Pesquisar</i> 
+								</a>
+							</div>
 					</div>
 				</div>
 			</div>
-		</div>
 	</div>
+<!-- 	<div class="page-header"> -->
+<!-- 		<div class="container-fluid"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-xs-10"> -->
+<!-- 					<h1 th:if="${colegio.nova}">Cadastro escolas</h1> -->
+<!-- 					<h1 th:unless="${colegio.nova}" th:text="|Edição - ${colegio.nome}|"></h1> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-xs-2"> -->
+<!-- 					<div class="aw-page-header-controls"> -->
+<!-- 						<a class="btn btn-default" th:href="@{/colegios}"> <i -->
+<!-- 							class="glyphicon glyphicon-search"></i> <span -->
+<!-- 							class="hidden-xs  hidden-sm">Pesquisa</span> -->
+<!-- 						</a> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
 	<div class="container-fluid">
 
@@ -44,12 +62,12 @@
 						id="nome" type="text" class="form-control" th:field="*{nome}" />
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group text-right">
 				<button class="btn  btn-primary  js-btn-submit" type="submit">Salvar</button>
 			</div>
 		</form>
 	</div>
-
+</div>
 </section>
 
 </html>

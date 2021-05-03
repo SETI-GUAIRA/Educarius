@@ -64,7 +64,7 @@ public class Pedido implements Serializable{
 	
 	
 	public Object GetMes() {
-		// TODO Auto-generated method stub
-		return MonthDay.now().getMonthValue()+1;
+		// TODO Auto-generated method stub		
+		return MonthDay.now().getMonthValue();
 	}
 }

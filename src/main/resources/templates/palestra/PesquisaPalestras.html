@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:plano="http://ti.guaira.pr.gov.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+	
+	
+<head>
+<title>Pesquisa de palestras</title>
+<!--   <link rel="stylesheet" th:href="@{/css/custom.css}"> -->
+</head>
+<section layout:fragment="conteudo">
+  <div class="container fundoForm">
+	<div class="nomeForm tituloFundo">		
+			<div class="row">
+				<div class="col-xs-9">
+					<h1>Pesquisa palestras</h1>
+				</div>	
+				
+				<div class="col-xs-3">
+						<div class="btnPesq">
+							<a   th:href="@{/palestras/nova}">							
+							<i class="fa  fa-fw  fa-file-o ">&nbsp;&nbsp;Novo</i> 
+							</a>
+						</div>
+				</div>
+			</div>		
+	</div>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${palestraFilter}">			
+			<div class="row form">
+			<div class="col-sm-12  form-group">
+					<label for="evento" class="control-label">Evento</label>
+					<div class="bw-field-action">
+						<select id="evento" class="form-control" th:field="*{evento}">
+							<option value="">Selecione um evento</option>
+							<option th:each="evento : ${eventos}" th:value="${evento.codigo}"
+								th:text="${evento.nome}"></option>
+						</select>
+					</div>
+				</div>					
+			</div>		
+			<div class="form-group text-right">			
+				<button type="submit" class="btn  btn-primary ">
+				<i class="fa  fa-fw  fa-search "></i>Pesquisar
+				</button>
+			</div>	
+		</form>
+		<div class="table-responsive  py-tabela-simples">
+			<table class="table  table-hover">
+				<thead  class="nomeForm tituloFundo">
+					<tr>
+					     <th><i class="fas fa-image table-column-imagem"></i> Foto</th>
+						<th>Palestra
+<!-- 							<plano:order page="${pagina}" field="nomePalestra" text="Palestra"/> -->
+						</th>
+						<th>Nome Palestrante
+<!-- 							<plano:order page="${pagina}" field="nomePalestrante" text="Nome Palestrante"/> -->
+						</th>
+						<th class="table-hospedagem-col-acoes  text-center">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="palestra : ${pagina.conteudo}">
+					    <td class="img-container">
+					      <div th:unless="${palestra.fotoNome.isEmpty()}">
+                        	<img class="img-fluid img-thumb " th:src="@{'/palestras/downloadFile/'+${palestra.codigo}}" />
+                        		<div class="bigImg" style="display: none;">
+                          			<img class="img-thumb-big" th:src="@{'/palestras/downloadFile/'+${palestra.codigo}}" />
+                          		</div>
+                          </div>	
+                          <div th:if="${palestra.fotoNome.isEmpty()}">	
+                          		<img class="img-fluid img-thumb " th:src="@{/images/avatar.jpg}" />
+                        		<div class="bigImg" style="display: none;">
+                          			<img class="img-thumb-big" th:src="@{/images/avatar.jpg}" />
+                          		</div>
+                          </div>
+                      </td>
+
+						<td th:text="${palestra.nomePalestra}"></td>
+						<td th:text="${palestra.nomePalestrante}"></td>
+						<td class="text-center">
+							<a class="textoTabela js-tooltip" title="Editar" 
+							 th:href="@{/palestras/{codigo}(codigo=${palestra.codigo})}"> 
+								<i class="fa  fa-fw  fa-pencil "></i>
+							</a>
+							<a class="textoTabela  js-exclusao-btn js-tooltip" title="Excluir" href="#"
+							th:attr="data-codigo=${palestra.codigo}, data-url=@{/palestras/{codigo}(codigo=${palestra.codigo})}, 
+ 							data-objeto=|${palestra.nomePalestra} do ${palestra.evento.nome} do período ${palestra.evento.semanaFormadata()}|"> 
+								<i class="fa  fa-fw  fa-trash "></i>
+							</a>
+						</td>
+					</tr>
+
+				<tr th:if="${pagina.vazia}">
+						<td colspan="4">Nenhuma aula encontrada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<plano:pagination page="${pagina}"/>
+		</div>
+	</div>
+</section>
+</html>

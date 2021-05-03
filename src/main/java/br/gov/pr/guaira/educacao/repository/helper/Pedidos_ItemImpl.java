@@ -47,7 +47,7 @@ public class Pedidos_ItemImpl implements Pedidos_ItemQueries {
 	public String GetMes() {
 		// TODO Auto-generated method stub
 		String mesf ="";
-		int mes = MonthDay.now().getMonthValue()+1;
+		int mes = MonthDay.now().getMonthValue();
 		switch(mes) {
 		 case 1:  mesf = "Janeiro"; break;
 		 case 2:  mesf = "Fevereiro"; break;

@@ -7,20 +7,20 @@
 
 <section layout:fragment="conteudo">
 
- <section class="page-section portfolio" id="aulas">
+ <section class="page-section portfolio" id="palestra">
    	<div class="container">
  		<div class="row">
-<!-- 	     	<nav aria-label="breadcrumb" class="col-xs-12 col-sm-12 col-md-6"> -->
-<!--  				<ol class="breadcrumb nav-breadcrumb"> -->
-<!--     				<li class="breadcrumb-item"><a th:href="@{/}">Início</a></li> -->
-<!--     				<li class="breadcrumb-item"><a th:href="|@{/semanasLiberadas/{codigoSerie}(codigoSerie=${serie})}#semanas|">Semanas</a></li> -->
-<!--     				<li class="breadcrumb-item active" aria-current="page">Aulas</li> -->
-<!--   				</ol> -->
-<!-- 			</nav> -->
+	     	<nav aria-label="breadcrumb" class="col-xs-12 col-sm-12 col-md-6">
+ 				<ol class="breadcrumb nav-breadcrumb">
+    				<li class="breadcrumb-item"><a th:href="@{/}">Início</a></li>
+    				<li class="breadcrumb-item"><a th:href="@{/educacaoespecial}">Eventos</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">Palestras</li>
+  				</ol>
+			</nav>
 		</div>
 	</div>
  <!-- Portfolio Section Heading -->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Semana do Autismo</h2>
+      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" th:text="${eventos.nome}"></h2>
 
       <!-- Icon Divider -->
       <div class="divider-custom">
@@ -34,159 +34,59 @@
       	<div class="row">
       		<div class="table-responsive  py-tabela-simples">
 			<table class="table  table-hover">
-				<thead>
+				<thead  class="nomeForm tituloFundo">
 					<tr>
-						
-							<th class="table-hospedagem-col-acoes  text-center">Tema</th>
-							
-						    <th class="table-hospedagem-col-acoes  text-center">Palestra</th>
-						    
-							<th class="table-hospedagem-col-acoes  text-center">Data</th>
-							
-							<th class="table-hospedagem-col-acoes  text-center">Horário</th>
-							
-							<th class="table-hospedagem-col-acoes  text-center">Status</th>
-						
-						    <th class="table-hospedagem-col-acoes  text-center">Link</th>
+					     <th><i class="fas fa-image"></i> Foto</th>
+					     <th>Nome Palestrante</th>
+						 <th>Tema</th>						
+						 <th >Data</th>
+						 <th >Horário</th>
+<!-- 						 <th>Status</th> -->
+						 <th class="text-center">Ações</th>
 					</tr>
 				</thead>
 				<tbody>
-				<tr >
-						<td class="text-center" style="vertical-align:middle;">Abertura </td>
-						
-						<td class="text-center" style="vertical-align:middle;"> Live</td>
-						
-						<td class="text-center" style="vertical-align:middle;">05/04/2021</td>
-						
-						<td class="text-center" style="vertical-align:middle;">08h30</td>
-						
-						<td class="text-center" style="vertical-align:middle;">Ativo</td>
+					<tr th:each="palestra : ${pagina.conteudo}">
+					    <td class="img-container">
+					      <div th:unless="${palestra.fotoNome.isEmpty()}">
+                        	<img class="img-fluid img-thumb " th:src="@{'/palestras/downloadFile/'+${palestra.codigo}}"/>
+                        		<div class="bigImg" style="display: none;">
+                          			<img class="img-thumb-big" th:src="@{'/palestras/downloadFile/'+${palestra.codigo}}"/>
+                          		</div>
+                          </div>	
+                          <div th:if="${palestra.fotoNome.isEmpty()}">	
+                          		<img class="img-fluid img-thumb " th:src="@{/images/avatar.jpg}" />
+                        		<div class="bigImg" style="display: none;">
+                          			<img class="img-thumb-big" th:src="@{/images/avatar.jpg}" />
+                          		</div>
+                          </div>
+                      </td>
+                        <td th:text="${palestra.nomePalestrante}"></td>
+						<td th:text="${palestra.nomePalestra}"></td>
+						<td th:text="${palestra.dataFormadata()}"></td>
+						<td th:text="${palestra.horaFormadata()}"></td>
+<!-- 						<td>Ativo</td> -->
 						
 						<td class="text-center">
-							<a class="btn btn-primary" th:href="@{/educacaoespecial/eventos04}"> <i
+							<a class="btn btn-primary" th:href="@{/educacaoespecial/palestras/{codigo}(codigo=${palestra.codigo})}"> <i
 							class="fas fa-plus"></i> <span
 							class="hidden-xs  hidden-sm">Acessar</span>
-						   </a>
+						</a>
 						</td>
 					</tr>
-					<tr >
-						<td class="text-center" style="vertical-align:middle;">Marcos do desenvolvimento e Análise do Comportamento: Porque precisamos intervir? </td>
-						
-						<td class="text-center" style="vertical-align:middle;"> Psic Ms. Stefanny Louíse Dörner Freitas</td>
-						
-						<td class="text-center" style="vertical-align:middle;">05/04/2021</td>
-						
-						<td class="text-center" style="vertical-align:middle;">09h</td>
-						
-						<td class="text-center" style="vertical-align:middle;">Ativo</td>
-						
-						<td class="text-center">
-							<a class="btn btn-primary" th:href="@{/educacaoespecial/eventos02}"> <i
-							class="fas fa-plus"></i> <span
-							class="hidden-xs  hidden-sm">Acessar</span>
-						   </a>
-						</td>
-					</tr>
-					<tr >
-						<td class="text-center" style="vertical-align:middle;">Ensino Naturalístico para crianças com autismo  </td>
-						
-						<td class="text-center" style="vertical-align:middle;">Prof. Phd Lucelmo Lacerda</td>
-						
-						<td class="text-center" style="vertical-align:middle;">05/04/2021</td>
-						
-						<td class="text-center" style="vertical-align:middle;">14h</td>
-						
-						<td class="text-center" style="vertical-align:middle;">Ativo</td>
-						
-						<td class="text-center">
-							<a class="btn btn-primary" th:href="@{/educacaoespecial/eventos03}"> <i
-							class="fas fa-plus"></i> <span
-							class="hidden-xs  hidden-sm">Acessar</span>
-						   </a>
-						</td>
-					</tr>
-					<tr >
-						<td class="text-center" style="vertical-align:middle;">O que eu preciso saber sobre o autismo?  </td>
-						
-						<td class="text-center" style="vertical-align:middle;">Dra. Júlia Fonseca Farage Saito (Médica)</td>
-						
-						<td class="text-center" style="vertical-align:middle;">06/04/2021</td>
-						
-						<td class="text-center" style="vertical-align:middle;">09h</td>
-						
-						<td class="text-center" style="vertical-align:middle;">Ativo</td>
-						
-						<td class="text-center">
-							<a class="btn btn-primary" th:href="@{/educacaoespecial/eventos05}"> <i
-							class="fas fa-plus"></i> <span
-							class="hidden-xs  hidden-sm">Acessar</span>
-						   </a>
-						</td>
-					</tr>		
-					<tr >
-						<td class="text-center" style="vertical-align:middle;">Risco não é diagnóstico - Autismo em tempos atuais</td>
-						
-						<td class="text-center" style="vertical-align:middle;">Psic Esp. Márcia Marcelino Pedro</td>
-						
-						<td class="text-center" style="vertical-align:middle;">06/04/2021</td>
-						
-						<td class="text-center" style="vertical-align:middle;">14h</td>
-						
-						<td class="text-center" style="vertical-align:middle;">Ativo</td>
-						
-						<td class="text-center">
-							<a class="btn btn-primary" th:href="@{/educacaoespecial/eventos06}"> <i
-							class="fas fa-plus"></i> <span
-							class="hidden-xs  hidden-sm">Acessar</span>
-						   </a>
-						</td>
-					</tr>
-					<tr >
-						<td class="text-center" style="vertical-align:middle;">Diga não ao Bullying e a violência nas escolas -<br> SOMOS TODOS IGUAIS NAS DIFERENÇAS  </td>
-						
-						<td class="text-center" style="vertical-align:middle;">Profª. Giane Lucia / Prof. Dir. Oscar Marreta /Professor Ms José Ricardo  </td>
-						
-						<td class="text-center" style="vertical-align:middle;">07/04/2021</td>
-						
-						<td class="text-center" style="vertical-align:middle;">09h</td>
-						
-						<td class="text-center" style="vertical-align:middle;">Ativo</td>
-						
-						<td class="text-center">
-							<a class="btn btn-primary" th:href="@{/educacaoespecial/eventos07}"> <i
-							class="fas fa-plus"></i> <span
-							class="hidden-xs  hidden-sm">Acessar</span>
-						   </a>
-						</td>
-					</tr>	
-					<tr >
-						<td class="text-center" style="vertical-align:middle;">Dialogando com a comunidade </td>
-						
-						<td class="text-center" style="vertical-align:middle;"> Vídeo de resposta as perguntas feitas no Instagram sobre o Autismo</td>
-						
-						<td class="text-center" style="vertical-align:middle;">07/04/2021</td>
-						
-						<td class="text-center" style="vertical-align:middle;">14h</td>
-						
-						<td class="text-center" style="vertical-align:middle;">Ativo</td>
-						
-						<td class="text-center">
-							<a class="btn btn-primary" th:href="@{/educacaoespecial/eventos08}"> <i
-							class="fas fa-plus"></i> <span
-							class="hidden-xs  hidden-sm">Acessar</span>
-						   </a>
-						</td>
-					</tr>		
-					
 
-<!-- 				<tr th:if="${pagina.vazia}"> -->
-<!-- 						<td colspan="4">Nenhuma aula encontrada</td> -->
-<!-- 					</tr> -->
+				<tr th:if="${pagina.vazia}">
+						<td colspan="12">Nenhuma evento encontrada</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
-      	</div>
-      </div>
+		
+<!-- 		<plano:pagination page="${pagina}"/> -->
+		</div>
+	</div>
+	
+      
 </section>
 </section>
 

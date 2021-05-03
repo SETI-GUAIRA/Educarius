@@ -11,25 +11,42 @@
 <title>Pesquisa de séries</title>
 </head>
 <section layout:fragment="conteudo">
-	<div class="page-header">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-10">
-					<h1>Pesquisa de séries</h1>
+<div class="container fundoForm">  
+		<div class="page-header">
+				<div class="nomeForm tituloFundo">		
+						<div class="row">
+							<div class="col-xs-9">
+								<h2>Pesquisa de séries</h2>
+							</div>				
+							<div class="col-xs-3">
+									<div class="btnPesq">
+										<a   th:href="@{/serieColegio/nova}">							
+										<i class="fa  fa-fw  fa-file-o ">&nbsp;&nbsp;Novo</i> 
+										</a>
+									</div>
+							</div>
+						</div>		
 				</div>
-				<div class="col-xs-2">
-					<div class="aw-page-header-controls">
-						<a class="btn btn-default" th:href="@{/serieColegio/nova}"> <i
-							class="glyphicon  glyphicon-plus-sign"></i> <span
-							class="hidden-xs  hidden-sm">Nova</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
+<!-- 	<div class="page-header"> -->
+<!-- 		<div class="container-fluid"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-xs-10"> -->
+<!-- 					<h1>Pesquisa de séries</h1> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-xs-2"> -->
+<!-- 					<div class="aw-page-header-controls"> -->
+<!-- 						<a class="btn btn-default" th:href="@{/serieColegio/nova}"> <i -->
+<!-- 							class="glyphicon  glyphicon-plus-sign"></i> <span -->
+<!-- 							class="hidden-xs  hidden-sm">Nova</span> -->
+<!-- 						</a> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	
-	<div class="container-fluid">
+	<div class="container-fluid form">
 		<form method="GET" th:object="${serieColegioFilter}">
 			<div class="row">
 				<div class="form-group  col-sm-12">
@@ -38,11 +55,15 @@
 				</div>
 			</div>
 			
-			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+			<div class="form-group text-right">			
+				<button type="submit" class="btn  btn-primary ">
+				<i class="fa  fa-fw  fa-search "></i>Pesquisar
+				</button>
+			</div>	
 		</form>
 		<div class="table-responsive  py-tabela-simples">
 			<table class="table  table-hover">
-				<thead>
+				<thead class="nomeForm tituloFundo">
 					<tr>
 						<th>
 							<plano:order page="${pagina}" field="nome" text="Nome"/>
@@ -55,14 +76,14 @@
 					
 						<td th:text="${serieColegio.nome}"></td>
 						<td class="text-center">
-							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" 
+							<a class="textoTabela  js-tooltip" title="Editar" 
 							 th:href="@{/serieColegio/{codigo}(codigo=${serieColegio.codigo})}"> 
-								<i class="glyphicon glyphicon-pencil"></i>
+								<i class="fa  fa-fw  fa-pencil"></i>
 							</a>
-							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="#"
+							<a class="textoTabela  js-tooltip  js-exclusao-btn" title="Excluir" href="#"
 							th:attr="data-codigo=${serieColegio.codigo}, data-url=@{/serieColegio/{codigo}(codigo=${serieColegio.codigo})}, 
 							data-objeto=${serieColegio.nome}">
-								<i class="glyphicon glyphicon-remove"></i>
+								<i class="fa  fa-fw  fa-trash "></i>
 							</a>
 						</td>
 					</tr>
@@ -74,6 +95,6 @@
 			</table>
 		</div>
 			<plano:pagination page="${pagina}"/>
-	</div>
+	</div></div></div>
 </section>
 </html>

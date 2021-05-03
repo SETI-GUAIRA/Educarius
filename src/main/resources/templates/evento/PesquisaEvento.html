@@ -10,27 +10,27 @@
 <head>
 <title>Pesquisa de eventos</title>
 </head>
-<section layout:fragment="conteudo">
-	<div class="page-header">
-		<div class="container-fluid">
+
+<section layout:fragment="conteudo">	
+<div class="container fundoForm">
+	<div class="nomeForm tituloFundo">		
 			<div class="row">
-				<div class="col-xs-10">
+				<div class="col-xs-9">
 					<h1>Pesquisa eventos</h1>
+				</div>	
+				
+				<div class="col-xs-3">
+						<div class="btnPesq">
+							<a   th:href="@{/eventos/nova}">							
+							<i class="fa  fa-fw  fa-file-o ">&nbsp;&nbsp;Novo</i> 
+							</a>
+						</div>
 				</div>
-				<div class="col-xs-2">
-					<div class="aw-page-header-controls">
-						<a class="btn btn-default" th:href="@{/eventos/nova}"> <i
-							class="glyphicon  glyphicon-plus-sign"></i> <span
-							class="hidden-xs  hidden-sm">Nova</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
+			</div>		
 	</div>
 	
-	<div class="container-fluid">
-		<form method="GET" th:object="${eventoFilter}"autocomplete="off">
+	
+		<form method="GET" th:object="${eventoFilter}"autocomplete="off" class="form">
 			<div class="row  bw-required">
 					<div class="col-sm-12  form-group" plano:classforerror="nome">
 						<label for="nome" class="control-label" >Nome</label> <input
@@ -47,12 +47,15 @@
 					<input id="dataFinal" type="text" class="form-control  js-date" th:field="*{dataFinal}" />
 				</div>
 			</div>
-						
-			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+			<div class="form-group text-right">			
+				<button type="submit" class="btn  btn-primary ">
+				<i class="fa  fa-fw  fa-search "></i>Pesquisar
+				</button>
+			</div>	
 		</form>
 		<div class="table-responsive  py-tabela-simples">
 			<table class="table  table-hover">
-				<thead>
+				<thead class="nomeForm tituloFundo">
 					<tr>
 					    <th class="table-cervejas-col-foto"></th>
 						<th>
@@ -69,29 +72,27 @@
 				</thead>
 				<tbody>
 					<tr th:each="evento : ${pagina.conteudo}">
-					    <td class="text-center">			
-<!-- 					    <img th:src="@{/fotos/thumbnail.22172983-b0fa-4c0f-9d3d-cdccc6ec84a4_logoPrefeitura.png}" class="img-responsive"/>				 -->
-<!-- 							<img th:src="@{/fotos/thumbnail.{foto}(foto=${evento.foto})}" class="img-responsive"/> -->
+					    <td class="text-center">
 							<img th:src="${evento.urlThumbnailFoto}" class="img-responsive"/>
 						</td>
 					    <td th:text="${evento.nome}"></td>
 						<td th:text="${#temporals.format(evento.dataInicial, 'dd/MM/yyyy')}"></td>
 						<td th:text="${#temporals.format(evento.dataFinal, 'dd/MM/yyyy')}"></td>
 						<td class="text-center">
-							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" 
+							<a class="textoTabela js-tooltip" title="Editar" 
 							 th:href="@{/eventos/{codigo}(codigo=${evento.codigo})}"> 
-								<i class="glyphicon glyphicon-pencil"></i>
+								<i class="fa  fa-fw  fa-pencil "></i>
 							</a>
-							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="#"
+							<a class="textoTabela  js-exclusao-btn js-tooltip" title="Excluir" href="#"
 							th:attr="data-codigo=${evento.codigo}, data-url=@{/eventos/{codigo}(codigo=${evento.codigo})}, 
  							data-objeto=${evento.nome}"> 
-								<i class="glyphicon glyphicon-remove"></i>
+								<i class="fa  fa-fw  fa-trash "></i>
 							</a>
 						</td>
 					</tr>
 
-				<tr th:if="${pagina.vazia}">
-						<td colspan="4">Nenhuma semana encontrada</td>
+				     <tr th:if="${pagina.vazia}">
+						<td colspan="12">Nenhuma semana encontrada</td>
 					</tr>
 				</tbody>
 			</table>
@@ -99,4 +100,5 @@
 			<plano:pagination page="${pagina}"/>
 	</div>
 </section>
+
 </html>

@@ -29,9 +29,26 @@
 		   <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#footer">Contato</a>
           </li>
-           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" target="_blank" th:href="@{/login}">Admin</a>
-          </li>
+<!--            <li class="nav-item mx-0 mx-lg-1"> -->
+<!--             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" target="_blank" th:href="@{/login}">Admin</a> -->
+<!--           </li> -->
+					<li sec:authorize="isAuthenticated()">
+					<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+					  th:href="@{/principal}">Painel</a>
+				</li>
+				<li class="nav-item mx-0 mx-lg-1" sec:authorize="isAnonymous()"><a
+					class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+					th:href="@{/login}">Login</a></li>
+<!-- 				<li class="nav-item mx-0 mx-lg-1" sec:authorize="isAnonymous()"><a -->
+<!-- 					class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" -->
+<!-- 				 th:href="@{/alunos/novo}">Registrar</a></li> -->
+
+				<li class="nav-item mx-0 mx-lg-1" sec:authorize="isAuthenticated()"><a
+					class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+					target="_blank" th:href="@{/logout}"><i
+						class="fas fa-sign-out-alt"></i></a></li>
+
+
         </ul>
       </div>
     </div>

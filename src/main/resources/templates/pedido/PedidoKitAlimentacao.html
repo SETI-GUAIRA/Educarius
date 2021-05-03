@@ -11,8 +11,8 @@
 <title>Lançar Pedido de Kit Alimentação</title>
 </head>
 <section layout:fragment="conteudo">
-	<div class="page-header">
-		<div class="container-fluid">
+	<div class="container fundoForm">
+	    <div class="nomeForm tituloFundo">	
 			<div class="row">
 				<div class="col-xs-12 ">
 					<h1>LANÇAR PEDIDO - KIT ALIMENTAÇÃO ESCOLAR 
@@ -22,11 +22,11 @@
 
 			</div>
 		</div>
-	</div>
+	
 	
 	<div class="container-fluid"> 
 	<div class="col-sm-12">	
-			<h1><a class="btn  btn-link  btn-xs  js-tooltip  js-pedido-btn label label-success col-sm-12" title="Lançar" href="#"
+			<h1><a class="btn1  btn-link  btn-xs  js-tooltip  js-pedido-btn label label-success col-sm-12" title="Lançar" href="#"
 			th:attr=" data-url=@{/pedidos/gravaPedido}, data-objeto= ${proximoMEs}">
 				Efetuar Pedido <i class="glyphicon glyphicon-ok"></i>  							
  			</a></h1>
@@ -34,16 +34,16 @@
  			<div class="col-sm-12">
  			<div class="table-responsive  py-tabela-simples">
 			<table class="table  table-hover">
-				<thead>
+				<thead class="nomeForm tituloFundo">
 					<tr>
-						<th class="table-hospedagem-col-acoes textoTabela">Data da emissão do pedido</th>
+						<th >Data da emissão do pedido</th>
 <!-- 						<th> -->
 <!-- 							<plano:order page="${pagina}" field="nome" text="Quantidade"/> -->
 <!-- 						</th> -->
 <!-- 						<th> -->
 <!-- 							<plano:order page="${pagina}" field="nome" text="Referende "/> -->
 <!-- 						</th> -->
-						<th  class="table-hospedagem-col-acoes  text-center textoTabela">Ação</th>
+						<th class="table-hospedagem-col-acoes  text-center">Ação</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -52,19 +52,16 @@
 						<td class="textoTabela" th:text="${#temporals.format(pedido.dataPedido, 'dd/MM/yyyy')}"></td>
 <!-- 						<td> [[${totalPedidos}]]</td> -->
 <!-- 						<td> [[${proximoMEs}]]</td> -->
-						<td class="text-center">
-						<a class="btn  btn-dark  btn-xs  js-tooltip  js-carterinha-btn textoTabela" title="Pedido"
+						<td class="text-center ">
+						<a class="textoTabela js-tooltip" title="Pedido"
                              th:href="@{/relatorios/pedido/{data}(data=${pedido.dataPedido})}" target="_blank">
                           	<i class="fa  fa-fw  fa-file-pdf-o"></i>
                         </a> 
-<!-- 							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar"  -->
-<!-- 							 th:href="@{/colegios/{codigo}(codigo=${colegio.codigo})}">  -->
-<!-- 								<i class="glyphicon glyphicon-pencil"></i> -->
-<!-- 							</a> -->
-							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn textoTabela" title="Excluir" href="#"
+
+							<a class="textoTabela js-exclusao-btn js-tooltip" title="Excluir" href="#"
 							th:attr="data-codigo=${pedido.codigo}, data-url=@{/pedidos/{codigo}(codigo=${pedido.codigo})}, 
 							data-objeto=${#temporals.format(pedido.dataPedido, 'dd/MM/yyyy')}">
-								<i class="fa  fa-fw  fa-times"></i>
+									<i class="fa  fa-fw  fa-trash "></i>
 							</a>
 						</td>
 					</tr>
@@ -77,6 +74,6 @@
 		</div>		
 			<plano:pagination page="${pagina}"/> 			
 	</div>	
-	</div> 
+	</div></div> 
 </section>
 </html>

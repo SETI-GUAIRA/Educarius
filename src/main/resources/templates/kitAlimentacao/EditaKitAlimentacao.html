@@ -5,27 +5,27 @@
 	layout:decorate="~{layout/LayoutPadrao.html}">
 
 <section layout:fragment="conteudo">
+<div class="container fundoForm">  
 <!--     <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Cadastro de Kit Alimentação</h2>  -->
     <div class="page-header">
-		<div class="container-fluid">
+		<div class="nomeForm tituloFundo">		
 			<div class="row">
-				<div class="col-xs-10">
-					<h2 th:if="${kitAlimentacao.nova}" class="TituloForm">Cadastro de Kit Alimentação</h2> 
+				<div class="col-xs-9 ">
+					<h2 th:if="${kitAlimentacao.nova}">Cadastro de Kit Alimentação</h2> 
 					<h2 class="TituloForm" th:unless="${kitAlimentacao.nova}" th:text="|Edição - ${kitAlimentacao.nomeAluno}|"></h2>
 				</div>
-				<div class="col-xs-2">
-					<div class="aw-page-header-controls">
-						<a class="btn btn-default" th:href="@{/kitAlimentacao}"> <i
-							class="glyphicon  glyphicon-plus-sign"></i> <span
-							class="hidden-xs  hidden-sm">pesquisar</span>
-						</a>
-					</div>
+				<div class="col-xs-3">
+					<div class="btnPesq">
+							<a   th:href="@{/kitAlimentacao}">							
+							<i class="fa  fa-fw  fa-search">&nbsp;&nbsp;Pesquisar</i> 
+							</a>
+						</div>
 				</div>
 			</div>
 		</div>
 	</div>
         
-    <div class="container fundoForm">  
+    
     	<form method="POST" th:object="${kitAlimentacao}"
 			class="form-vertical  js-form-loading"
 			th:action="${kitAlimentacao.nova} ? @{/kitAlimentacao/editar} : @{/kitAlimentacao/{codigo}(codigo=${kitAlimentacao.codigo})}">
@@ -34,7 +34,7 @@
 	        <div layout:insert="fragments/MensagemErro"></div> 
 	        
 			<div class="nomeForm">DADOS ALUNO</div>				
-			<div class="row  bw-required">
+			<div class="row  bw-required form">
 				<div class="col-sm-12  form-group"plano:classforerror="nomeAluno">
 						<label for="nomeAluno" class="control-label">Nome *
 							</label> <input id="nomeAluno" type="text" class="form-control"

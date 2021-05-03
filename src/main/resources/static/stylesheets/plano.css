@@ -48,7 +48,10 @@
     min-width: 50px;
     width: 50px
 }
-
+.bw-upload-form-file:hover {
+  color: aqua;
+  text-decoration: underline;
+}
 /* Upload */
 .bw-upload {
 	padding: 15px;
@@ -58,14 +61,42 @@
 	text-align: center;
 }
 
-.bw-upload-form-file {
+.bw-upload-form-file{
 	display: inline-block;
 	vertical-align: middle;
 	position: relative;
 	overflow: hidden;
 	margin-bottom: 1px;
 }
-
+.bw-upload2 {	
+	padding: 15px;
+	border: 1px dashed #ddd;
+	border-radius: 4px;
+	background: #fafafa;
+	text-align: center;
+	width: 100%;
+	background: #1B5896;
+	color: #ffffff;
+}
+.bw-upload-form-file2{
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 1px;
+}
+.bw-upload-form-file2>input[type=file] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-top:5px;
+	margin-left:-113px;
+	z-index: 1;
+	width: 460px;
+	opacity: 1;
+	cursor: pointer;
+	height: 100%;
+}
 .bw-upload-form-file>input[type=file] {
 	position: absolute;
 	top: 0;

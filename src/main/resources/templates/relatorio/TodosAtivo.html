@@ -9,11 +9,12 @@
 
 <body>
   <section layout:fragment="conteudo">
-            <div class="page-header">
-				<div class="container-fluid">
+     <div class="container fundoForm">  
+		<div class="page-header">
+				<div class="nomeForm tituloFundo">	
 					<div class="row">
 						<div class="col-xs-10">
-							<h1>Gerar relatorio de todos os Kit Alimentação Escolar (ATIVOS)</h1>
+							<h2>Gerar relatorio de todos os Kit Alimentação Escolar (ATIVOS)</h2>
 						</div>						
 					</div>
 				</div>
@@ -21,9 +22,7 @@
 		      <section class="content">
 			      <div class="container-fluid">	
 				      <div class="col-md-12">
-			             <div class="card card-navy">	             
-			             	<br><br><br>
-		                <!--  	<form role="form" class="form" th:object="${kitAlimentacaoFilter}" th:action="@{/relatorios/colegio}" method="get" target="_blank">-->
+			             <div class="card card-navy">
 		                	<form role="form" class="form" th:object="${kitAlimentacaoFilter}" th:action="@{/relatorios/todosAtivos}" method="POST" target="_blank">
 		                	<div class="card-body">
 		               			<div class="row">									    
@@ -66,15 +65,17 @@
 							                 	        
 		                  		</div>
 		                  	</div> 
-		                  	<div class="card-footer" align="right">						           
-								 <button type="submit" class="btn btn-primary" >Buscar</button>
-							</div>  
+		                  	<div class="form-group text-right">			
+									<button type="submit" class="btn  btn-primary ">
+									<i class="fa  fa-fw  fa-search "></i>Buscar
+									</button>
+								</div>		 
 							</form>       
 			             </div>	             
 			          </div>
 			      </div>
 		      </section>
-      
+         </div>
 	</section>
 </body>
 </html>

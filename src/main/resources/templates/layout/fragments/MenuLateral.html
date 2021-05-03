@@ -45,10 +45,52 @@
 			            	<a sec:authorize ="hasRole('COLEGIO')" th:href="@{/serieColegio}">
 			            	<i class="fa  fa-fw  fa-bars"></i>Series</a>
 			            </li>
-			            <li th:if="${#authentication.principal.usuario.colegio == null}" class="aw-menu__item  aw-menu__item--link" portal:menu="@{/serieColegio.*}">
-			            	<a sec:authorize ="hasRole('EDUCACAO_ESPECIAL')" th:href="@{/eventos}">
-			            	<i class="fa  fa-fw  fa-bars"></i>Eventos</a>
-			            </li>
+
+<!-- 			            MENU EDUCAÇÃO ESPECIAL -->	
+						 <div class="aw-layout-sidebar__content">
+			    	        <nav class="aw-menu  js-menu">         
+						       <ul class="aw-menu__list">     
+							        <li class="aw-menu__item"  sec:authorize ="hasRole('EDUCACAO_ESPECIAL')">
+					          			<a href="#">
+					            			<i class="fa  fa-fw  fa-calendar"></i><span>Eventos</span>
+					            			<i class="aw-menu__navigation-icon  fa"></i>
+					          			</a>
+					
+					          			<ul class="aw-menu__list  aw-menu__list--sublist">			            
+								            <li th:if="${#authentication.principal.usuario.colegio == null}" class="aw-menu__item  aw-menu__item--link" portal:menu="@{/eventos.*}">
+								            	<a sec:authorize ="hasRole('EDUCACAO_ESPECIAL')" th:href="@{/eventos/nova}">
+								            	<i class="fa  fa-fw  fa-file-o"></i>Novo</a>
+								            </li>
+								            <li th:if="${#authentication.principal.usuario.colegio == null}" class="aw-menu__item  aw-menu__item--link" portal:menu="@{/palestras.*}">
+								            	<a sec:authorize ="hasRole('EDUCACAO_ESPECIAL')" th:href="@{/eventos}">
+								            	<i class="fa  fa-fw  fa-list-ul"></i>Listar</a>
+								            </li>
+					          			</ul>
+				        		   </li>
+						       </ul>     
+						    </nav>
+			    	        <nav class="aw-menu  js-menu">         
+						       <ul class="aw-menu__list">     
+							        <li class="aw-menu__item"  sec:authorize ="hasRole('EDUCACAO_ESPECIAL')">
+					          			<a href="#">
+					            			<i class="fa  fa-fw  fa-th-list "></i><span>Palestra</span>
+					            			<i class="aw-menu__navigation-icon  fa"></i>
+					          			</a>					
+					          			<ul class="aw-menu__list  aw-menu__list--sublist">			            
+								            <li th:if="${#authentication.principal.usuario.colegio == null}" class="aw-menu__item  aw-menu__item--link" portal:menu="@{/eventos.*}">
+								            	<a sec:authorize ="hasRole('EDUCACAO_ESPECIAL')" th:href="@{/palestras/nova}">
+								            	<i class="fa  fa-fw  fa-file-o"></i>Novo</a>
+								            </li>
+								            <li th:if="${#authentication.principal.usuario.colegio == null}" class="aw-menu__item  aw-menu__item--link" portal:menu="@{/palestras.*}">
+								            	<a sec:authorize ="hasRole('EDUCACAO_ESPECIAL')" th:href="@{/palestras}">
+								            	<i class="fa  fa-fw  fa-list-ul"></i>Listar</a>
+								            </li>
+					          			</ul>
+				        		   </li>
+						       </ul>     
+						  </nav>
+					</div>               
+<!-- 			FIM MENU EDUCAÇÃO ESPECIAL             -->		
           			</ul>
         		</li>
         		<li class="aw-menu__item" th:if="${#authentication.principal.usuario.colegio == null}">
