@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +26,12 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 @Service
 public class JasperService {
+
 	@Autowired
 	private Connection connection;
+	
+	@Autowired
+	private DataSource dataSource;
 	
 	private Map<String, Object> params = new HashMap<>();
 	
@@ -38,23 +44,6 @@ public class JasperService {
 		
 	}
 
-	
-//	public byte[] recibo_Kit_Alimentacao_PDF() throws FileNotFoundException{
-//		byte[] bytes = null;
-//		try {	
-//	
-//		InputStream jasperStream = this.getClass().getResourceAsStream("/jasper/colegio.jasper");
-//		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);	
-//		JasperPrint print = JasperFillManager.fillReport(jasperReport, params, connection);	
-//			
-//		    bytes = JasperExportManager.exportReportToPdf(print);
-//		} catch (JRException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return bytes;
-//	
-//	}
 	
 	public byte[] recibo_Kit_Alimentacao_PDF() throws Exception {		
 		InputStream inputStream = this.getClass().getResourceAsStream("/jasper/ReciboKitAlimentacao.jasper");
@@ -74,13 +63,13 @@ public class JasperService {
 		return geraRelatorio(params, inputStream, connection);
 	}
 	
-	private byte[] geraRelatorio(Map<String, Object> parametros, InputStream inputStream, Connection con)
+	private byte[] geraRelatorio(Map<String, Object> parametros, InputStream inputStream,Connection con)
 			throws JRException, SQLException {
 		try {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, parametros, con);
 			return JasperExportManager.exportReportToPdf(jasperPrint);
 		}finally {			
-		//	con.close();
+			//this.dataSource.getConnection().close();
 		}
 	}
 	

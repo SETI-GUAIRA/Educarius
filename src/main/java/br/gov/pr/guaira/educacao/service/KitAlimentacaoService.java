@@ -67,7 +67,7 @@ public class KitAlimentacaoService {
 	@Transactional
 	public void excluir(KitAlimentacao kitAlimentacao){
 		Optional<Pedido_Item> pedidoOptional = this.pedidos_Item.VerificaJaexisteAlunoItemPedido(kitAlimentacao.getCodigo());
-		if(pedidoOptional.isPresent()) {
+		if(pedidoOptional.isPresent()) {		
 			throw new PedidoJaCadastradoException("Aluno vinculado ao pedido de kit, não pode ser excluído!");
 		}				
 				try {

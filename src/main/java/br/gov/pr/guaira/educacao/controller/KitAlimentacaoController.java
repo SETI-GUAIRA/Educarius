@@ -101,8 +101,7 @@ public class KitAlimentacaoController {
 		mv.addObject("colegios", this.colegios.findAll());		
 		mv.addObject("tiposPessoa", TipoPessoa.values());
         UsuarioSistema usuario = (UsuarioSistema)SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
-        kitAlimentacao.setColegio(usuario.getUsuario().getColegio());
-		
+        kitAlimentacao.setColegio(usuario.getUsuario().getColegio());		
 		return mv;
 	}
 	//REFERENTE A TELA DE CADASTRO ADM

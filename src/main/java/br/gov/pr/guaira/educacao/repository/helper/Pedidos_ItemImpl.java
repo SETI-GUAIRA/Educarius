@@ -5,6 +5,7 @@ package br.gov.pr.guaira.educacao.repository.helper;
 
 import java.time.LocalDate;
 import java.time.MonthDay;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import br.gov.pr.guaira.educacao.model.KitAlimentacao;
 import br.gov.pr.guaira.educacao.model.Pedido;
 import br.gov.pr.guaira.educacao.model.Pedido_Item;
 import br.gov.pr.guaira.educacao.model.Semana;
@@ -78,6 +80,20 @@ public class Pedidos_ItemImpl implements Pedidos_ItemQueries {
 
 
 
+	@Override
+	public Pedido_Item retornaPedidoItem(Long codigo) {
+		return (Pedido_Item) manager
+				.createQuery("from Pedido_Item where codigo_kit_alimentacao = :codigo", Pedido_Item.class)
+					.setParameter("codigo", codigo).getResultList();
+		//return null;
+	}
+
+
+
+
+	
+	
+	
 //	@Override
 //	public void deleteItemBycodigoPedido(Long codPedido) {
 //		 manager

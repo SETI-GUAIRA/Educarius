@@ -62,15 +62,13 @@ private Colegios colegios;
 @Autowired
 private Pedidos pedidos;	
 
-@Autowired
-private PedidoService pedidoService;	
 
 
 @Autowired
 private SeriesColegios seriesColegios;		
 	
-@Autowired
-private Connection connection;
+//@Autowired
+//private Connection connection;
 
   @GetMapping("/recibo")
   public ModelAndView recibo(KitAlimentacaoFilter kitAlimentacaoFilter) {
@@ -87,11 +85,11 @@ private Connection connection;
     return mv;
   }
 
-  @GetMapping("/conn")
-  public String myConn(Model model) {
-  	model.addAttribute("conn", connection != null ? "Conexão ok!" : "Ops... sem conexão");
-      return "relatorio/Relatorio";
-  }  
+//  @GetMapping("/conn")
+//  public String myConn(Model model) {
+//  	model.addAttribute("conn", connection != null ? "Conexão ok!" : "Ops... sem conexão");
+//      return "relatorio/Relatorio";
+//  }  
 
 
 	
